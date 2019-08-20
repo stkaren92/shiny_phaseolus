@@ -17,15 +17,16 @@ dashboardPage(
                   titleWidth = 200), # close dashboard header
   
   ## Sidebar Menu
-  dashboardSidebar(collapsed = F, disable = F,
+  dashboardSidebar(collapsed = T, disable = F,
                    sidebarMenu(
                      menuItem("Introducción", tabName = "home", icon = icon("home")),
-                     menuItem("Mapa", tabName = "widgets", icon = icon("map")),
-                     menuItem("Voronoi", tabName = "widgets1", icon = icon("certificate")),
+                     menuItem("Distribución", tabName = "widgets", icon = icon("map")),
+                     menuItem("Altitud", tabName = "widgets1", icon = icon("certificate")),
+                     menuItem("Epoca de Crecimiento", tabName = "widgets3", icon = icon("adjust")),
                      menuItem("Waffle", tabName = "widgets2", icon = icon("th")),
                      menuItem("Conabio", tabName = "conabio", icon = icon("user"))
-                     
-                   )), # close sidebar menu
+                              )
+                   ), # close sidebar menu
   
   ## Dashboard Body
   dashboardBody(tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "style.css")),
@@ -77,73 +78,48 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                   tabItem(tabName = "widgets",
                           dashboardBody(
                             tags$style(type = "text/css", "#mymap1 {height: calc(100vh - 80px) !important;}"),
-                            leafletOutput('mymap1', width = "100%", height = "100%")
+                            leafletOutput('mymap1', width = "100%", height = "400px")
                           ),
-                        
-                  
-                  
-                        fixedPanel(top = 130, left = 250, draggable = T,
+                        absolutePanel(top = 90, right = 20, draggable = T,
                                      #Seleccionar el estado
                                      selectInput(inputId = "Habitat.1",
                                                  label = h6("Condición:"),
-                                                 c("All", levels(Mex3$Habitat.1))),
+                                                 c("All", levels(Mex3$Habitat.1)), width = 200),
                                      
                                      
                                       #Seleccionar el estado
                                      selectInput(inputId = "Estado",
                                                  label = h6("Estado:"),
-                                                 c("All", levels(Mex3$Estado))),
+                                                 c("All", levels(Mex3$Estado)), width = 200),
                                     
                                     #Seleccionar la especie 
                                      selectInput(inputId = "Especie",
                                                  label = h6("Especie:"),
-                                                 c("All", levels(Mex3$Especie)))
+                                                 c("All", levels(Mex3$Especie)), width = 200)
                                 
                           ) # close absolute panel
                   ), # close widget page
                   
-                  ## Para el mapa 2
+                  ## Para la gráfica de la Altitud
                   tabItem(tabName = "widgets1",
                           dashboardBody(
                             tags$style(type = "text/css", "#graph2 {height: calc(100vh - 80px) !important;}"),
                             plotOutput('graph2', height = "100%")
                           ),
-                  #        column(width = 10,
-                  #               # Main View Box
-                  #               box(width = NULL, status = "danger", height = 500, plotOutput("graph2", width = "100%"))
-                  #               #   fluidRow(
-                  #               #     tabBox(title = " ", height = 425, width = 6,
-                  #               #            tabPanel("Sales Summary", htmlOutput("SalesSummaryText")),
-                  #               #            tabPanel("Sales Chart", plotlyOutput("salePricePlot", height = 400))),
-                  #               #     tabBox(title = " ", height = 425, width = 6,
-                  #               #            tabPanel("Rental Chart", plotlyOutput("rentalPricePlot", height = 400))))
-                  #        ), # close main view box
-                          
                           
                           absolutePanel(top = 100, right = 40,
-                                 #br(),
-                                 
-                                 # Input Selector Box
-                                     
-                                     #Seleccionar el estado
-                                     selectInput(inputId = "Estado1",
-                                                 label = h6("Estado:"),
-                                                 choice = c(levels(Mex4$Estado)),
-                                                 selected = c("Oaxaca")),
-                                     
-                                     #Seleccionar la especie 
-                                     selectInput(inputId = "Especie1",
-                                                 label = h6("Especie:"),
-                                                 c("All", levels(Mex4$Especie)))
-                                 
+                                     #Seleccionar la variable para  
+                                 selectInput(inputId = 'Var11', label = h4('Ordenar por:'), 
+                                             choice = c('maximo', 'minimo', 'promedio'))
+                                  
                           ) # close column
                   ), # close widget page
                 
                   ## Para el waffle
                   tabItem(tabName = "widgets2",
                           dashboardBody(
-                            tags$style(type = "text/css", "#graph3 {height: calc(100vh - 80px) !important;}"),
-                            plotOutput('graph3', height = "100%")
+                            tags$style(type = "text/css", "#graph3 {height: calc(100vh - 40px) !important;}"),
+                            plotOutput('graph3', height = "auto", width = "auto")
                           ),
                           
                      #     column(width = 10,

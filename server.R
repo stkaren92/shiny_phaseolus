@@ -12,7 +12,7 @@ library(plotly)
 #library(vcd)
 library(sp)
 library(rgdal)
-library(deldir)
+#library(deldir)
 library(ggthemes)
 library(ggmap)
 library(ggvoronoi)
@@ -25,10 +25,6 @@ shinyServer(
     
     output$inc <- renderUI({getPage()})
     
-    
-    
-  
-    
     observeEvent(
       eventExpr =  c(input$Habitat.1, input$Estado),  if (input$Habitat.1 != "All" & input$Estado == "All") {
         updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
@@ -37,30 +33,17 @@ shinyServer(
                           choice = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
         
       }  
-      #else if (input$Habitat.1 != "All") {
-      #  updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
-      #                    choice = c("All", levels(droplevels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
-      #} 
-    #  else if (input$Estado != "All") {
-    #    updateSelectInput(session, inputId = c("Especie"), label = c("Especie:"), 
-    #                      choice = c("All", levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
-    #  }
     else if (input$Habitat.1 != "All" & input$Estado != "All") {
       updateSelectInput(session, inputId = "Especie", label = "Especie:", 
                         choice = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado &
                                                                            Mex3$Habitat.1 %in% input$Habitat.1]))))
-      # toggle("hideme") 
     }
       else if (input$Habitat.1 == "All" & input$Estado != "All") {
-      #  updateSelectInput(session, inputId = c("Habitat.1"), label = c("Habitat:"), 
-      #                     choice = c("All", levels(Mex3$Habitat.1)))
         updateSelectInput(session, inputId = "Especie", label = "Especie:", 
                           choice = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
-        # toggle("hideme") 
       }
       else 
       {
-        #updateSelectInput(session, inputId = c("Especie", "Habitat.1", "Estado"))
         updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
                           choice = c("All", levels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1])))
         updateSelectInput(session, inputId = c("Especie"), label = c("Especie:"), 
@@ -68,31 +51,7 @@ shinyServer(
       }
                )
     
-#    observeEvent(
-#     input$Habitat.1,  if (input$Habitat.1 != "All") {
-#        updateSelectInput(session, inputId = "Especie", label = "Especie:", 
-#                          choice = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
-#        # toggle("hideme") 
-#      } else updateSelectInput(session, inputId = "Especie", label = "Especie:", 
-#             choice = c("All", levels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1] & Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
 
-  #  observeEvent(
-  #    input$Estado,  if (input$Habitat.1 == "All" & input$Estado != "All") {
-  #      updateSelectInput(session, inputId = "Especie", label = "Especie:", 
-  #                        choice = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
-  #     # toggle("hideme") 
-  #    } else updateSelectInput(session, inputId = "Especie", label = "Especie:", 
-  #                             choice = c("All", levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado])))))
-      
-    
-    
-    
-  #  observeEvent(
-  #    input$Estado, {
-  #      toggle("hideme")    
-  #    }
-  #  )
-    
     points <- reactive({
       
       #Tipo
@@ -116,42 +75,13 @@ shinyServer(
     output$mymap1 <- renderLeaflet(
       {
     Tabla3 <- points()
-    #Tabla3 <- Mex3
-   # head(Tabla3)
-    
-    
-    #Para los diagramas de Voronoi
-  #  Tabla4 <- Tabla3 %>%
-    #  distinct(Longitud, Latitud) %>%
-    #  na.omit(Longitud)
-    
-    
-  #  vor_pts <- SpatialPointsDataFrame(cbind(Tabla4$Longitud, Tabla4$Latitud),
-  #                                    Tabla4, match.ID = T)
-  #  vor <- SPointsDF_to_voronoi_SPolysDF(vor_pts)
-    #class(vor)
-    
+
     leaflet() %>%
       addTiles() %>%
-      # base map
-      
-      #droplevels(TablaH$Estado)
-      
-      #addProviderTiles("Hydda.Base") %>%
       addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
-      
-      #  #Para el diagrama de Voronoi
-   #   addPolygons(data = vor,
-  #                stroke = TRUE, color = "#a5a5a5", weight = 0.25,
-   #               fill = TRUE, fillOpacity = 0.0,
-  #                smoothFactor = 0.5) %>%
-      # puntos de Frijol
       addCircles(data = Tabla3,
                  lng = ~Longitud, lat = ~Latitud,
-                 #radius = ~sqrt(Plantíos)*300, # size is in m for addCircles O_o
-                 #color = ~factpal(Cultivo), weight = 1, opacity = 1,
                  color = Tabla3$RatingCol, weight = 5, opacity = 0.7,
-                 #fillColor = ~factpal(Cultivo), fillOpacity = 0.5,
                  popup = ~paste(sep = " ", "Especie:",Tabla3$Taxa,
                                 "<br/>", "Condición:",Tabla3$Habitat.1,
                                 "<br/>", "Estado:",Tabla3$Estado,
@@ -168,23 +98,48 @@ shinyServer(
         updateSelectInput(session, inputId = "Especie1", label = "Especie:", 
                           choice = c("All" ,levels(droplevels(Mex4$Especie[Mex4$Estado %in% input$Estado1])))))
     
-    points1 <- reactive({
+#    points1 <- reactive({
       #Por Estado
       
-      if (input$Estado1 != "All") {
-        Mex4 <- Mex4[Mex4$Estado %in% input$Estado1,]
-      } else Mex4 <- Mex4
+     
+      
+      
+      
+#       if (input$Estado1 != "All") {
+#        Mex4 <- Mex4[Mex4$Estado %in% input$Estado1,]
+#      } else Mex4 <- Mex4
       
       #Por Especie
-      if (input$Especie1 != "All") {
-        Mex4 <- Mex4[Mex4$Especie %in% input$Especie1,]
-      } else Mex4 <- Mex4
+#      if (input$Especie1 != "All") {
+#        Mex4 <- Mex4[Mex4$Especie %in% input$Especie1,]
+#      } else Mex4 <- Mex4
       
       
-    })
+ #   })
   
     ####
-#    output$graph2 <- renderPlot({
+    output$graph2 <- renderPlot({
+      
+      uno <- ggplot(Mex6) + 
+        geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, input$Var11)),
+                      colour = "#dddddd",
+                      size = 1,
+                      colour_x = "#FAAB18",
+                      colour_xend = "#1380A1",
+                      dot_guide = TRUE,
+                      dot_guide_size = 0.05) +
+        theme_minimal() +
+        theme(legend.position = "", 
+              axis.text.x = element_text(angle = 0, size = 8, hjust = 1, vjust = 0),
+              axis.text.y = element_text(size = 8, face = "italic"), 
+              axis.title = element_text(size = 11), 
+              legend.text = element_text(size = 11)) +
+        labs(title = "Altitud", x = "metros", 
+             y = "", fill = "",
+             family = "Helvetica") +
+        xlim(0, 4000)
+      
+      print(uno)
       
 #      Tabla3a <- points1()
 #      Tabla4.1 <- Tabla3a %>%
@@ -229,7 +184,7 @@ shinyServer(
 #      
 #      print(ggWatershed)
 #      
-#    })
+    })
 #    
     points2 <- reactive({
       #input$update

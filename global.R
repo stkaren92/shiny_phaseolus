@@ -329,10 +329,7 @@ Mex4$Estado <- factor(Mex4$Estado)
 #  dplyr::mutate(group = revalue(group,c("31.1" = "Baja California")))
 #mutate(group = revalue(group,c("" = ""))) %>%
 
-#Para la página de internet
-
-head(Mex4)
-
+#Para la Altitud
 Mex5 <- Mex4 %>%
   select(Especie, Altitud) %>%
   group_by(Especie) %>%
@@ -354,88 +351,5 @@ Mex6 <- Mex4 %>%
   mutate(rango = maximo - minimo) %>%
   na.omit()
 
-head(Mex6)
-Mex6[Mex6$Especie == "Phaseolus pedicellatus",]
-ggplot(Mex6) + 
-  geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, maximo)),
-                colour = "#dddddd",
-                size = 1,
-                colour_x = "#FAAB18",
-                colour_xend = "#1380A1",
-                dot_guide = T,
-                dot_guide_size = 0.05) +
-  theme_minimal() +
-  theme(legend.position = "", 
-        axis.text.x = element_text(angle = 0, size = 8, hjust = 1, vjust = 0),
-        axis.text.y = element_text(size = 8, face = "italic"), 
-        axis.title = element_text(size = 11), 
-        legend.text = element_text(size = 11)) +
-  labs(title = "Altitud", x = "metros", 
-       y = "", fill = "",
-       family = "Helvetica") +
-  xlim(0, 4000)
-  #coord_flip()
-
-
-#Para Floración y Fructificación
-FloFru <- read_xlsx("data/Flor_fruc.xlsx", sheet = "Rdata", col_names = T)
-
-head(FloFru)
-dim(FloFru)
-
-
-FloFru1 <- FloFru %>%
-  gather("Mes", "Val", 8:19) %>%
-  mutate(Mes1 = Mes) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Enero" = 1))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Febrero" = 2))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Marzo" = 3))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Abril" = 4))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Mayo" = 5))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Junio" = 6))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Julio" = 7))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Agosto" = 8))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Septiembre" = 9))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Octubre" = 10))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Noviembre" = 11))) %>%
-  dplyr::mutate(Mes1 = revalue(Mes1,c("Diciembre" = 12))) %>%
-  #dplyr::mutate(Val = revalue(Val,c(1 = 100))) %>%
-  filter(Tipo == "Cultivados") %>%
-  #filter(Epoca == "Fructificación") %>%
-  filter(Val > 0)
-    
-
-FloFru1$Mes1 <- as.numeric(FloFru1$Mes1)
-
-FloFru1$Nombre_Nombre <- as.factor(FloFru1$Nombre_Nombre)
-
-FloFru1[FloFru1$Nombre_Nombre == "campanulatus",]
-
-as.data.frame(FloFru1[FloFru1$Nombre_Nombre == "campanulatus",])
-
-
-library(ggridges)
-
-ggplot(FloFru1, aes(x = Mes1, y = Epoca)) + 
-  geom_density_ridges(color = "red", fill = "red", alpha = 0.5, scale = 2, jittered_points = TRUE) +
-  scale_x_continuous(expand = c(-0.25,-0.25), breaks = c(1:12)) +
-  theme_bw() %>%
-  scale_x_discrete(breaks = c(1:12),
-                   labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ags", "Sep", "Oct", "Nov", "Dic"))
-
-ggplot(FloFru1, aes(x = Mes1, y = Val)) +
-  theme_bw() +
-  geom_line(aes(color = Nombre_Nombre), size = 5, alpha = 0.5 ) +
-  scale_x_continuous(expand = c(0,0), breaks = c(1:12)) 
-
-
-p <- ggplot(mpg, aes(displ, hwy))
-p + geom_point()
-
-
-head(iris)
-ggplot(iris, aes(x = Sepal.Length, y = Species)) + geom_density_ridges()
-
-head(FloFru1)
 
 
