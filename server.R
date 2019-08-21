@@ -89,7 +89,6 @@ shinyServer(
                                 "<br/>", "Localidad:",Tabla3$Localidad,
                                 "<br/>", "Altitud:",Tabla3$Altitud,
                                 "<br/>", "Año de colecta:", Tabla3$AnioColecta))
-    
      })
     
     
@@ -114,14 +113,21 @@ shinyServer(
 #        Mex4 <- Mex4[Mex4$Especie %in% input$Especie1,]
 #      } else Mex4 <- Mex4
       
+library(rlang)
+    
+    Mex7 <- reactive({
+      #Mex6[,input$Var11]
+      Mex6[,Mex6 %in% input$var11]
       
+      })
+    
+    
  #   })
-  
     ####
     output$graph2 <- renderPlot({
-      
-      uno <- ggplot(Mex6) + 
-        geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, input$Var11)),
+      LL <- Mex6
+      uno <- ggplot(LL) + 
+        geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, Mex7() )),
                       colour = "#dddddd",
                       size = 1,
                       colour_x = "#FAAB18",
@@ -139,53 +145,11 @@ shinyServer(
              family = "Helvetica") +
         xlim(0, 4000)
       
-      print(uno)
-      
-#      Tabla3a <- points1()
-#      Tabla4.1 <- Tabla3a %>%
-#        distinct(Longitud, Latitud, .keep_all = T)
-#        
-#      TT <- as.character(droplevels(Tabla4.1$Estado)[1])
-#      
-#      #na.omit(Longitud)
-#      
-#      shapefile_df2 <- shapefile_df %>%
-#        #droplevels(Estado) %>%
-#         filter(group == TT)
-#      
-#      
-#      cali.voronoi <- voronoi_polygon(data = Tabla4.1,
-#                                      x = "Longitud", y = "Latitud",
-#                                      outline = shapefile_df2)
-#      cali.voronoi <- fortify_voronoi(cali.voronoi)
-#      
-#      vtess <- deldir(Tabla4.1[,14:13])
-#      #summary(vtess$summary)
-#      vtess1 <-  as.data.frame(vtess$summary$dir.area)
-#      names(vtess1) <- c("Area")
-#      vtess1$Area1 <- decostand(vtess1$Area, "log")
-#      #vtess1$Area1 <- decostand(vtess1$Area1, "freq")
-#      
-#      Tabla4.2 <- data.frame(Tabla4.1, vtess1)
-#      
-#     # head(Tabla4.2)
-#      
-#      ggWatershed <- ggplot() +
-#        geom_polygon(data = shapefile_df2, aes(x = long, y = lat, group = group), color = "black") + 
-#        #geom_path(color = "black") +
-#        #scale_fill_hue(l = 40) +
-#        coord_equal() +
-#        theme_void(base_family = "Roboto Condensed") +
-#        theme(legend.position = "none", title = element_blank(), axis.text = element_blank()) + 
-#        geom_voronoi(data = Tabla4.2, aes(x = Longitud, y = Latitud, fill = Area1), outline = shapefile_df2 ) +
-#        scale_fill_gradient2(low = "red",high = "#eaecee", guide = F, mid = "white", midpoint = quantile(Tabla4.2$Area1, 0.75) ) +
-#        geom_point(data = Tabla4.1, aes(x = Longitud, y = Latitud), size = 0, color = "steelblue")
-#      
-#      
-#      print(ggWatershed)
-#      
-    })
-#    
+      uno
+      }
+      )
+
+    #    
     points2 <- reactive({
       #input$update
       

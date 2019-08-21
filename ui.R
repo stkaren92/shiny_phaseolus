@@ -14,25 +14,28 @@ dashboardPage(
 
   ## Dashboard Header
   dashboardHeader(title = "Frijol",
-                  titleWidth = 200), # close dashboard header
+                  titleWidth = 300), # close dashboard header
   
   ## Sidebar Menu
-  dashboardSidebar(collapsed = T, disable = F,
+  dashboardSidebar( width = 200,
+                  collapsed = F, disable = F,
                    sidebarMenu(
+                    # shinyjs::useShinyjs(),
                      menuItem("Introducción", tabName = "home", icon = icon("home")),
                      menuItem("Distribución", tabName = "widgets", icon = icon("map")),
-                     menuItem("Altitud", tabName = "widgets1", icon = icon("certificate")),
+                     menuItem("Altitud", tabName = "widgets1", icon = icon("mountain")),
                      menuItem("Epoca de Crecimiento", tabName = "widgets3", icon = icon("adjust")),
-                     menuItem("Waffle", tabName = "widgets2", icon = icon("th")),
+                     menuItem("Gráfica de waffle", tabName = "widgets2", icon = icon("th")),
                      menuItem("Conabio", tabName = "conabio", icon = icon("user"))
                               )
                    ), # close sidebar menu
   
   ## Dashboard Body
-  dashboardBody(tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "style.css")),
+  dashboardBody(
+             #tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "style.css")),
                 
                 ## Tab Items Pages
-                tabItems(
+                tabItems( 
                   ## Home
                  tabItem(tabName = "home",
                 #         tags$a(href = "https://humaneborders.org/", div(img(src = "logo-dipper-line.png", width = "200"), 
@@ -71,14 +74,16 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
 
                             
                             #htmlOutput("inc")
-                                  )
-                  ), # close home page
+                                  ) #close fluidRow
+                  ), # close home tab
                   
+          
                   ## Para el mapa 1
                   tabItem(tabName = "widgets",
-                          dashboardBody(
+                          fluidRow(
+                           # tags$head(tags$style("#mymap1 {height:90vh !important;}")),
                             tags$style(type = "text/css", "#mymap1 {height: calc(100vh - 80px) !important;}"),
-                            leafletOutput('mymap1', width = "100%", height = "400px")
+                            leafletOutput('mymap1')
                           ),
                         absolutePanel(top = 90, right = 20, draggable = T,
                                      #Seleccionar el estado
@@ -102,25 +107,33 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                   
                   ## Para la gráfica de la Altitud
                   tabItem(tabName = "widgets1",
-                          dashboardBody(
+                          fluidRow(
                             tags$style(type = "text/css", "#graph2 {height: calc(100vh - 80px) !important;}"),
                             plotOutput('graph2', height = "100%")
                           ),
                           
                           absolutePanel(top = 100, right = 40,
                                      #Seleccionar la variable para  
-                                 selectInput(inputId = 'Var11', label = h4('Ordenar por:'), 
-                                             choice = c('maximo', 'minimo', 'promedio'))
+                                 selectInput(inputId = 'var11', label = h4('Ordenar por:'), 
+                                             choice = names(Mex6[,2:4]) )
                                   
                           ) # close column
                   ), # close widget page
                 
                   ## Para el waffle
                   tabItem(tabName = "widgets2",
-                          dashboardBody(
+                          fluidRow(
                             tags$style(type = "text/css", "#graph3 {height: calc(100vh - 40px) !important;}"),
+                            fluidRow(
+                              h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de Canadá a la Florida  y sur de EUA.  
+    En México, crecen en  las  zonas  montañosas  (principalmente en  la  vertiente  del  Pacífico)  
+    y  algunas  de ellas llegan a Centroamérica y Sudamérica, donde se distribuyenen los Andes hasta 
+    el norte  de  Argentina." )
+                            ),
                             plotOutput('graph3', height = "auto", width = "auto")
                           ),
+                          
+                          
                           
                      #     column(width = 10,
                     #             # Main View Box

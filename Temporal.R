@@ -1,28 +1,28 @@
-#Para la página de internet
-
-head(Mex4)
-
-
-head(Mex6)
-ggplot(Mex6) + 
-  geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, prom)),
-                colour = "#dddddd",
-                size = 1,
-                colour_x = "#FAAB18",
-                colour_xend = "#1380A1",
-                dot_guide = T,
-                dot_guide_size = 0.05) +
-  theme_minimal() +
-  theme(legend.position = "", 
-        axis.text.x = element_text(angle = 0, size = 8, hjust = 1, vjust = 0),
-        axis.text.y = element_text(size = 8, face = "italic"), 
-        axis.title = element_text(size = 11), 
-        legend.text = element_text(size = 11)) +
-  labs(title = "Altitud", x = "metros", 
-       y = "", fill = "",
-       family = "Helvetica") +
-  xlim(0, 4000)
-#coord_flip()
+##Para la página de internet
+#
+#head(Mex4)
+#
+#
+#head(Mex6)
+#ggplot(Mex6) + 
+#  geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, prom)),
+#                colour = "#dddddd",
+#                size = 1,
+#                colour_x = "#FAAB18",
+#                colour_xend = "#1380A1",
+#                dot_guide = T,
+#                dot_guide_size = 0.05) +
+#  theme_minimal() +
+#  theme(legend.position = "", 
+#        axis.text.x = element_text(angle = 0, size = 8, hjust = 1, vjust = 0),
+#        axis.text.y = element_text(size = 8, face = "italic"), 
+#        axis.title = element_text(size = 11), 
+#        legend.text = element_text(size = 11)) +
+#  labs(title = "Altitud", x = "metros", 
+#       y = "", fill = "",
+#       family = "Helvetica") +
+#  xlim(0, 4000)
+##coord_flip()
 
 
 #Para Floración y Fructificación

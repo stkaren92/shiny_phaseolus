@@ -351,5 +351,72 @@ Mex6 <- Mex4 %>%
   mutate(rango = maximo - minimo) %>%
   na.omit()
 
+head(Mex6)
+
+#
+#
+#prom1 <- c("prom")
+#noquote(prom1)
+#
+#
+#Mex6 %>% 
+#  arrange(noquote(prom1))
+#
+#
+#
+#Mex6[order(noquote(dos)),]
+#
+#
+#dos <- factor(paste("Mex6", "$", "prom", sep = ""))
+#
+#head(Mex6)
+#Mex6[base::order(dos),]
+#
+#
+#iris
+#head(iris)
+#
+#iris %>% 
+#  arrange(Sepal.Length)
+#
+#
+#uno <- Sepal.Length
+#
+#iris %>% 
+#  arrange(uno)
+#
+#
+#
+#Mex7 <- Mex6
+#Mex7$Mount_Cont <- factor(Mex7$Mount_Cont, levels = newData[order(newData$Metres), "Mount_Cont"])
+#
+#
+#
+
+
+#Mex7 <- Mex6$prom
+#
+#
+#LL <- Mex6
+#uno <- ggplot(LL) + 
+#  geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, Mex7)),
+#                colour = "#dddddd",
+#                size = 1,
+#                colour_x = "#FAAB18",
+#                colour_xend = "#1380A1",
+#                dot_guide = TRUE,
+#                dot_guide_size = 0.05) +
+#  theme_minimal()
+#uno
+
+
+Mex6[Mex6 %in% prom,]
+
+v1 <- 3
+v2 <- 101
+t <- c(1,2,3,4,5,6,7,8)
+v1 %in% t
+
+mtcars[mtcars$cyl %in% 4,]
 
 
