@@ -23,7 +23,7 @@ dashboardPage(
                     # shinyjs::useShinyjs(),
                      menuItem("Introducción", tabName = "home", icon = icon("home")),
                      menuItem("Distribución", tabName = "widgets", icon = icon("map")),
-                     menuItem("Altitud", tabName = "widgets1", icon = icon("mountain")),
+                     menuItem("Altitud", tabName = "widgets1", icon = icon("certificate")),
                      menuItem("Epoca de Crecimiento", tabName = "widgets3", icon = icon("adjust")),
                      menuItem("Gráfica de waffle", tabName = "widgets2", icon = icon("th")),
                      menuItem("Conabio", tabName = "conabio", icon = icon("user"))
@@ -115,7 +115,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           absolutePanel(top = 100, right = 40,
                                      #Seleccionar la variable para  
                                  selectInput(inputId = 'var11', label = h4('Ordenar por:'), 
-                                             choice = names(Mex6[,2:4]) )
+                                             choice = c("promedio", "máximo", "mínimo") )
                                   
                           ) # close column
                   ), # close widget page

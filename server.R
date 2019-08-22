@@ -113,21 +113,32 @@ shinyServer(
 #        Mex4 <- Mex4[Mex4$Especie %in% input$Especie1,]
 #      } else Mex4 <- Mex4
       
-library(rlang)
-    
-    Mex7 <- reactive({
-      #Mex6[,input$Var11]
-      Mex6[,Mex6 %in% input$var11]
-      
-      })
+#
+#    Mex10 <- reactive({
+#      if (input$Var11 == "prom") {Mex4a <- Mex7}
+#      if (input$Var11 == "maximo") {Mex4a <- Mex8}
+#      else (input$Var11 == "minimo") {Mex4a <- Mex9}
+#      
+      #Mex6[Mex6 %in% input$var11,]
+ #     })
     
     
  #   })
+    
+    Mex10 <- reactive({
+      switch(input$var11,
+             "promedio" = Mex7,
+             "máximo" = Mex8,
+             "mínimo" = Mex9)
+    })
+    
+    
+    
     ####
     output$graph2 <- renderPlot({
-      LL <- Mex6
+      LL <- Mex10()
       uno <- ggplot(LL) + 
-        geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, Mex7() )),
+        geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, ordenar1) ),
                       colour = "#dddddd",
                       size = 1,
                       colour_x = "#FAAB18",
