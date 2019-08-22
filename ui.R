@@ -109,13 +109,13 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                   tabItem(tabName = "widgets1",
                           fluidRow(
                             tags$style(type = "text/css", "#graph2 {height: calc(100vh - 80px) !important;}"),
-                            plotOutput('graph2', height = "100%")
+                            plotOutput('graph2', height = "80%", width = "80%")
                           ),
                           
-                          absolutePanel(top = 100, right = 40,
+                          absolutePanel(top = 70, right = 20, 
                                      #Seleccionar la variable para  
                                  selectInput(inputId = 'var11', label = h4('Ordenar por:'), 
-                                             choice = c("promedio", "máximo", "mínimo") )
+                                             choice = c("promedio", "máximo", "mínimo"), width = 200 )
                                   
                           ) # close column
                   ), # close widget page
@@ -130,7 +130,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
     y  algunas  de ellas llegan a Centroamérica y Sudamérica, donde se distribuyenen los Andes hasta 
     el norte  de  Argentina." )
                             ),
-                            plotOutput('graph3', height = "auto", width = "auto")
+                            plotOutput('graph3', height = "80%", width = "80%")
                           ),
                           
                           
@@ -156,7 +156,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                                      selectInput(inputId = "Estado2",
                                                  label = h6("Estado:"),
                                                  choice = c(levels(Mex3$Estado)),
-                                                 selected = c("Oaxaca"))
+                                                 selected = c("Oaxaca"), width = 200 )
                                      
                                  
                           ) # close column

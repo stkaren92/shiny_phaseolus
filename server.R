@@ -3,9 +3,9 @@ library(shinyjs)
 library(leaflet)
 library(RColorBrewer)
 #library(googleVis)
+library(plyr)
 library(tidyverse)
 #library(taxize)
-library(plyr)
 library(latticeExtra)
 library(vegan)
 library(plotly)
@@ -14,8 +14,8 @@ library(sp)
 library(rgdal)
 #library(deldir)
 library(ggthemes)
-library(ggmap)
-library(ggvoronoi)
+#library(ggmap)
+#library(ggvoronoi)
 library(waffle)
 
 # Define server logic for slider examples
@@ -148,7 +148,7 @@ shinyServer(
         theme_minimal() +
         theme(legend.position = "", 
               axis.text.x = element_text(angle = 0, size = 8, hjust = 1, vjust = 0),
-              axis.text.y = element_text(size = 8, face = "italic"), 
+              axis.text.y = element_text(size = 10, face = "italic"), 
               axis.title = element_text(size = 11), 
               legend.text = element_text(size = 11)) +
         labs(title = "Altitud", x = "metros", 
