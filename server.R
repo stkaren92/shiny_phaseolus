@@ -51,7 +51,7 @@ shinyServer(
       }
                )
     
-
+#Para el mapa
     points <- reactive({
       
       #Tipo
@@ -97,34 +97,56 @@ shinyServer(
         updateSelectInput(session, inputId = "Especie1", label = "Especie:", 
                           choice = c("All" ,levels(droplevels(Mex4$Especie[Mex4$Estado %in% input$Estado1])))))
     
-#    points1 <- reactive({
-      #Por Estado
+
+    #Para las epocas de lluvia y Floración
+    
+    points1 <- reactive({
       
-     
+      #Epoca
+      FloFru <- FloFru[FloFru$Epoca %in% input$Epoca,]
       
-      
-      
-#       if (input$Estado1 != "All") {
-#        Mex4 <- Mex4[Mex4$Estado %in% input$Estado1,]
-#      } else Mex4 <- Mex4
-      
-      #Por Especie
-#      if (input$Especie1 != "All") {
-#        Mex4 <- Mex4[Mex4$Especie %in% input$Especie1,]
-#      } else Mex4 <- Mex4
-      
-#
-#    Mex10 <- reactive({
-#      if (input$Var11 == "prom") {Mex4a <- Mex7}
-#      if (input$Var11 == "maximo") {Mex4a <- Mex8}
-#      else (input$Var11 == "minimo") {Mex4a <- Mex9}
-#      
-      #Mex6[Mex6 %in% input$var11,]
- #     })
+      #Tipo
+      FloFru <- FloFru[FloFru$Tipo %in% input$Tipo,]
+    })
+    
+
+output$graph4 <- renderPlot({
+  
+  FloFru1 <- points1() %>%
+    gather("Mes", "Val", 8:19) %>%
+    rename("Categoria" = "NombreCategoriaTaxonomica") %>% 
+    rename("Genero1" = "Nombre_1_Nombre") %>% 
+    rename("Especie1" = "Nombre_Nombre") %>% 
+    group_by(Genero1, Especie1, Mes) %>% 
+    summarise(sum(Val)) %>% 
+    rename(Val = `sum(Val)`) %>% 
+    unite(Genero1, Especie1, col = "Especie", sep = " ")
+  
+  FloFru1$Mes <- as.factor(FloFru1$Mes)
+  
+  FloFru1$Mes <- ordered(FloFru1$Mes, levels = c("Enero", "Febrero", "Marzo",
+                                                 "Abril", "Mayo", "Junio",
+                                                 "Julio", "Agosto", "Septiembre",
+                                                 "Octubre", "Noviembre", "Diciembre"))
+  
+  
+  p <- ggplot(FloFru1, aes(Mes, Especie)) + 
+    geom_tile(aes(fill = Val), colour = "white") + 
+    scale_fill_gradient(low = "#deebf7", high = "#3182bd") +
+    theme_minimal() +
+    theme(panel.border = element_blank(),
+          axis.text.y = element_text(size = 10, face = "italic"),
+          axis.text.x = element_text(angle = 45, size = 10, hjust = 0.2, vjust = 0.2),
+          legend.position = "")
+  
+  p
+  
+  
+})    
     
     
- #   })
-    
+  
+  #Para la Altitud  
     Mex10 <- reactive({
       switch(input$var11,
              "promedio" = Mex7,

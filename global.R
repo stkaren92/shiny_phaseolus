@@ -368,5 +368,8 @@ Mex9 <- Mex6 %>%
   arrange(minimo) %>% 
   mutate(ordenar1 = minimo)
 
+FloFru <- read_xlsx("data/Flor_fruc.xlsx", sheet = "Rdata", col_names = T)
 
+FloFru$Epoca <- as.factor(FloFru$Epoca)
+FloFru$Tipo <- as.factor(FloFru$Tipo)
 
