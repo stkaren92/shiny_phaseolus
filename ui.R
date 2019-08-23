@@ -53,8 +53,8 @@ dashboardPage(
                             br(),
                             h2(strong("Introducción"), align = "center" ),
                             h4("Los frijoles (", em("Phaseolus sp."), ") pertenecen a la familia de las 
-leguminosas (Leguminosae o Fabaceae), junto con los chícharos, habas, soya, mezquites, huizaches,
-y alrededor de 19,400 especies. En el mundo se conocen alrededor de 150 especies de frijoles (Para mayor información visita la página de la", 
+leguminosas (Leguminosae o Fabaceae), junto con los chícharos, habas, soya, mezquites, huizaches
+con más de  19,000 especies. En el mundo se conocen alrededor de 150 especies de frijoles (Para mayor información visita la página de la", 
                         tags$a(href = "https://www.biodiversidad.gob.mx/usos/alimentacion/frijol.html", "Conabio"),")"),
                         
 h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de Canadá hasta 
@@ -67,7 +67,7 @@ h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de
 
 br(),
 h2(strong("Visualización:"), align = "center"),
-h4("Esta dividida en cuatro páginas"),
+h4("Esta visualización esta dividida en cuatro partes:"),
 
 fluidRow(
   column(7,
@@ -109,7 +109,7 @@ fluidRow(
   
   column(6,
          wellPanel(
-           img(src = "MapDistribution.png", width = "400")
+           img(src = "Crecimiento.png", width = "400")
          ))
 ),
 
@@ -181,7 +181,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           
                           absolutePanel(top = 70, right = 20, 
                                      #Seleccionar la variable para  
-                                 selectInput(inputId = 'var11', label = h4('Ordenar por:'), 
+                                 selectInput(inputId = 'var11', label = h6(strong('Ordenar por:') ), 
                                              choice = c("promedio", "máximo", "mínimo"), width = 200 )
                                   
                           ) # close column
@@ -196,11 +196,11 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           
                           absolutePanel(top = 70, right = 20, 
                                         #Seleccionar la variable para Epoca 
-                                        selectInput(inputId = 'Epoca', label = h4('Epoca:'), 
+                                        selectInput(inputId = 'Epoca', label = h6(strong('Epoca:') ), 
                                                     choice = levels(FloFru$Epoca), 
                                                     selected = "Floración", width = 200 ),
                                         #Seleccionar la variable para Epoca 
-                                        selectInput(inputId = 'Tipo', label = h4('Tipo:'), 
+                                        selectInput(inputId = 'Tipo', label = h6(strong('Tipo:') ), 
                                                     choice = levels(FloFru$Tipo), 
                                                     selected = "Silvestres",width = 200 )
                                         
@@ -216,7 +216,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           
                           absolutePanel(top = 100, right = 20,
                                      selectInput(inputId = "Estado2",
-                                                 label = h6("Estado:"),
+                                                 label = h6(strong("Estado:")),
                                                  choice = c(levels(Mex3$Estado)),
                                                  selected = c("Oaxaca"), width = 200 )
                                      

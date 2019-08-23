@@ -136,7 +136,7 @@ output$graph4 <- renderPlot({
     theme_minimal() +
     theme(panel.border = element_blank(),
           axis.text.y = element_text(size = 10, face = "italic"),
-          axis.text.x = element_text(angle = 45, size = 10, hjust = 0.2, vjust = 0.2),
+          axis.text.x = element_text(angle = 45, size = 12, hjust = 0.2, vjust = 0.2),
           legend.position = "")
   
   p
@@ -162,7 +162,7 @@ output$graph4 <- renderPlot({
       uno <- ggplot(LL) + 
         geom_dumbbell(aes(x = minimo, xend = maximo, y = reorder(Especie, ordenar1) ),
                       colour = "#dddddd",
-                      size = 1,
+                      size = 3,
                       colour_x = "#FAAB18",
                       colour_xend = "#1380A1",
                       dot_guide = TRUE,
@@ -222,10 +222,11 @@ output$graph4 <- renderPlot({
       mypalette <- levels(TTabla1$RatingCol)
        uno <- waffle(TTabla1$val1, rows = 10, size = 0.3, flip = F , reverse = F, colors = mypalette, legend_pos = "right", keep = T) 
       dos <- uno + 
-         theme(legend.text = element_text(size = 15),
-               legend.key.size = unit(0.8, "cm")) +
+         theme(legend.text = element_text(size = 15, face = "italic"),
+               legend.key.size = unit(0.9, "cm")) +
          scale_fill_manual(values = mypalette, name = "Especies", labels = TTabla1$Especie) +
-        labs(title = "Proporción de especies de frijol") 
+        labs(title = "Proporción de especies de frijol") +
+        guides(fill = guide_legend(title.theme = element_text(size = 20)))
         
       
       print(dos)
