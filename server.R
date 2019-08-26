@@ -22,32 +22,56 @@ library(waffle)
 shinyServer(
   function(input, output, session) {
     
+    #Hacer interactivo el mapa
+    shinyjs::onclick("mapa", 
+                     shiny::updateNavbarPage(session, 
+                                              inputId = "navbar",
+                                              selected = "widgets"))
+    
+    #Hacer interactivo la altitud
+    shinyjs::onclick("altitud", 
+                     shiny::updateNavbarPage(session, 
+                                             inputId = "navbar",
+                                             selected = "widgets1"))
+    
+    #Hacer interactivo el mapa
+    shinyjs::onclick("crecimiento", 
+                     shiny::updateNavbarPage(session, 
+                                             inputId = "navbar",
+                                             selected = "widgets3"))
+    
+    #Hacer interactivo el mapa
+    shinyjs::onclick("waffle", 
+                     shiny::updateNavbarPage(session, 
+                                             inputId = "navbar",
+                                             selected = "widgets2"))
+    
     
     output$inc <- renderUI({getPage()})
     
     observeEvent(
       eventExpr =  c(input$Habitat.1, input$Estado),  if (input$Habitat.1 != "All" & input$Estado == "All") {
         updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
-                          choice = c("All", levels(droplevels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
+                          choices = c("All", levels(droplevels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
         updateSelectInput(session, inputId = c("Especie"), label = c("Especie:"), 
-                          choice = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
+                          choices = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
         
       }  
     else if (input$Habitat.1 != "All" & input$Estado != "All") {
       updateSelectInput(session, inputId = "Especie", label = "Especie:", 
-                        choice = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado &
+                        choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado &
                                                                            Mex3$Habitat.1 %in% input$Habitat.1]))))
     }
       else if (input$Habitat.1 == "All" & input$Estado != "All") {
         updateSelectInput(session, inputId = "Especie", label = "Especie:", 
-                          choice = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
+                          choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
       }
       else 
       {
         updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
-                          choice = c("All", levels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1])))
+                          choices = c("All", levels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1])))
         updateSelectInput(session, inputId = c("Especie"), label = c("Especie:"), 
-                          choice = c("All", levels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1])))
+                          choices = c("All", levels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1])))
       }
                )
     
@@ -78,7 +102,7 @@ shinyServer(
 
     leaflet() %>%
       addTiles() %>%
-      addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
+      addProviderTiles(providers$CartoDB.DarkMatter) %>% 
       addCircles(data = Tabla3,
                  lng = ~Longitud, lat = ~Latitud,
                  color = Tabla3$RatingCol, weight = 5, opacity = 0.7,
@@ -135,7 +159,7 @@ output$graph4 <- renderPlot({
     scale_fill_gradient(low = "#deebf7", high = "#3182bd") +
     theme_minimal() +
     theme(panel.border = element_blank(),
-          axis.text.y = element_text(size = 10, face = "italic"),
+          axis.text.y = element_text(size = 12, face = "italic"),
           axis.text.x = element_text(angle = 45, size = 12, hjust = 0.2, vjust = 0.2),
           legend.position = "")
   
@@ -170,7 +194,7 @@ output$graph4 <- renderPlot({
         theme_minimal() +
         theme(legend.position = "", 
               axis.text.x = element_text(angle = 0, size = 8, hjust = 1, vjust = 0),
-              axis.text.y = element_text(size = 10, face = "italic"), 
+              axis.text.y = element_text(size = 12, face = "italic"), 
               axis.title = element_text(size = 11), 
               legend.text = element_text(size = 11)) +
         labs(title = "Altitud", x = "metros", 

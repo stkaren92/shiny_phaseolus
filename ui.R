@@ -19,13 +19,14 @@ dashboardPage(
   
   ## Sidebar Menu
   dashboardSidebar( width = 200,
+                  shinyjs::useShinyjs(),
                   collapsed = F, disable = F,
-                   sidebarMenu(
-                    # shinyjs::useShinyjs(),
+                  sidebarMenu(id = "navbar",
+                              #shinyjs::useShinyjs(),
                      menuItem("Introducción", tabName = "home", icon = icon("home")),
                      menuItem("Distribución", tabName = "widgets", icon = icon("map")),
                      menuItem("Altitud", tabName = "widgets1", icon = icon("certificate")),
-                     menuItem("Epoca de Crecimiento", tabName = "widgets3", icon = icon("adjust")),
+                     menuItem("Floración y Crecimiento", tabName = "widgets3", icon = icon("adjust")),
                      menuItem("Gráfica de waffle", tabName = "widgets2", icon = icon("th")),
                      menuItem("Conabio", tabName = "conabio", icon = icon("user"))
                               )
@@ -78,14 +79,15 @@ fluidRow(
               estado y especie ")
          )),
   
-  column(5,
+  column(4,
          wellPanel(
-           img(src = "MapDistribution.png", width = "400")
+           img(id = "mapa" ,src = "MapDistribution1.png", width = "400",
+               style = "cursor:pointer;")
            #onclick("MapDistribution.png", toggle("Distribución"))
-         ))
-),
+         )),
+#),
 
-fluidRow(
+#fluidRow(
   column(7,
          wellPanel(
            h3(strong("Altitud")),
@@ -94,28 +96,31 @@ fluidRow(
            el que se pueda establecer en distitnos ecosistemas de nuestro país")
          )),
   
-  column(5,
+  column(4,
          wellPanel(
-           img(src = "AltitudPlot.png", width = "400")
-         ))
-),
+           img(id = "altitud", src = "Altitud1.png", width = "400",
+               style = "cursor:pointer;")
+           #onclick = "fakeClick('distribucion_1')"
+         )),
+#),
 
-fluidRow(
-  column(6,
+#fluidRow(
+  column(7,
          wellPanel(
            h3(strong("Epoca de Crecimiento")),
            h4("")
          )),
   
-  column(6,
+  column(4,
          wellPanel(
-           img(src = "Crecimiento.png", width = "400")
-         ))
-),
+           img(id = "crecimiento" ,src = "Crecimiento1.png", width = "400",
+               style = "cursor:pointer;")
+         )),
+#),
 
 ###PAra la gráfica de Waffle
-fluidRow(
-  column(6,
+#fluidRow(
+  column(7,
          wellPanel(
            h3(strong("Waffle")),
            h4("Cual es la proporción de frijoles que hay en cada estado. Con
@@ -124,21 +129,12 @@ fluidRow(
               100 cuadros que representan la proporción ")
          )),
   
-  column(6,
+  column(4,
          wellPanel(
-           img(src = "WafflePlot.png", width = "400")
+           img(id = "waffle", src = "WafflePlot.png", width = "400",
+               style = "cursor:pointer;")
          ))
-),
-                        h4("Las plantas de frijol son hierbas rastreras y trepadoras con 
-foliolos de tres hojas. El color de sus flores tiene tonalidades rosas, 
-                          lilas y violetas. Sus semillas, lo que conocemos como frijol propiamente, 
-                          tiene forma de riñón y crecen en una vaina comestible como legumbre 
-                          (ejotes, del náhuatl exotl). Como otras leguminosas, estas plantas en sus raíces 
-                          tienen nódulos con bacterias fijadoras de nitrógeno. 
-                          El frijol contiene carbohidratos, alto contenido de proteínas, fibra, 
-                          grasa y minerales (calcio y hierro) y vitaminas del complejo B como la niacina, 
-                          riboflavina, ácido fólico y tiamina.")
-
+)
                             
                             #htmlOutput("inc")
                                   ) #close fluidRow
@@ -147,6 +143,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
           
                   ## Para el mapa 1
                   tabItem(tabName = "widgets",
+                          value = "distribucion_1",
                           fluidRow(
                            # tags$head(tags$style("#mymap1 {height:90vh !important;}")),
                             tags$style(type = "text/css", "#mymap1 {height: calc(100vh - 80px) !important;}"),
@@ -182,7 +179,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           absolutePanel(top = 70, right = 20, 
                                      #Seleccionar la variable para  
                                  selectInput(inputId = 'var11', label = h6(strong('Ordenar por:') ), 
-                                             choice = c("promedio", "máximo", "mínimo"), width = 200 )
+                                             choices = c("promedio", "máximo", "mínimo"), width = 200 )
                                   
                           ) # close column
                   ), # close widget page
@@ -197,11 +194,11 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           absolutePanel(top = 70, right = 20, 
                                         #Seleccionar la variable para Epoca 
                                         selectInput(inputId = 'Epoca', label = h6(strong('Epoca:') ), 
-                                                    choice = levels(FloFru$Epoca), 
+                                                    choices = levels(FloFru$Epoca), 
                                                     selected = "Floración", width = 200 ),
                                         #Seleccionar la variable para Epoca 
                                         selectInput(inputId = 'Tipo', label = h6(strong('Tipo:') ), 
-                                                    choice = levels(FloFru$Tipo), 
+                                                    choices = levels(FloFru$Tipo), 
                                                     selected = "Silvestres",width = 200 )
                                         
                           ) # close absolutePanel
@@ -217,7 +214,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           absolutePanel(top = 100, right = 20,
                                      selectInput(inputId = "Estado2",
                                                  label = h6(strong("Estado:")),
-                                                 choice = c(levels(Mex3$Estado)),
+                                                 choices = c(levels(Mex3$Estado)),
                                                  selected = c("Oaxaca"), width = 200 )
                                      
                                  
@@ -228,7 +225,7 @@ foliolos de tres hojas. El color de sus flores tiene tonalidades rosas,
                           fluidRow(
                             column(width = 11,
                                    h2(strong("Colaboradores del documento:")),
-                                   img(src = "APM.jpeg", width = "250"),
+                                   img(src = "Catbus.png", width = "250"),
                                    column(width = 3,
                                           h3("Oswaldo Oliveros Galindo"),
                                           h4("Especialista en Agrobiodiversidad"),
