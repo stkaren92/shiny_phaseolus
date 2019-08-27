@@ -45,8 +45,10 @@ dashboardPage(
                 #                                                         style = "text-align: left;")),
                          div(img(src = "Conabio_horizontal_rgb.png", width = "300"), style = "text-align: center;"),
                           fluidRow(
-                            h2(tags$a(href = "http://www.conabio.gob.mx/institucion/cgi-bin/datos2.cgi?Letras=JE&Numero=14", "Proyecto:"),
-                              strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México"), align = "center"),
+                            h2("Proyecto:", tags$a(href = "http://www.conabio.gob.mx/institucion/cgi-bin/datos2.cgi?Letras=JE&Numero=14", 
+                                      strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México")),
+                              #strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México"), 
+                              align = "center"),
                             h3(strong("Autores:"), align = "center"),
                             h4("Responsable del Proyecto:", strong("Dr. Alfonso Octavio Delgado Salinas") , align = "center"),
                             h4("Técnico Externo:", strong("M. en C. Susana Gama López") , align = "center"),
@@ -61,10 +63,16 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 especies d
                         
 h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de Canadá hasta 
     el norte  de  Argentina. Existen alrededor de 70 especies, de las cuales cinco han sido domesticadas:",
-    em("Phaseolus acutifolius"), "A. Gray (teparí o escumite),", em("Phaseolus coccineus"), 
-    "L. (ayocote, tecomarí, botil),", em("Phaseolus dumosus"), "Macfadyen (gordo, acalete),", 
-    em("Phaseolus lunatus"), "L. (ib, comba, patachete, navajita, lima) y", 
-    em("Phaseolus vulgaris") ,"L. (cimatl, frejol, frijol, etc.) y todas pueden cohabitar con sus
+    tags$a(href = "http://enciclovida.mx/especies/185375-phaseolus-acutifolius", em("Phaseolus acutifolius")),
+     "A. Gray (teparí o escumite),", 
+    tags$a(href = "http://enciclovida.mx/especies/185948-phaseolus-coccineus", em("Phaseolus coccineus")),
+    "L. (ayocote, tecomarí, botil),", 
+    tags$a(href = "http://enciclovida.mx/especies/186197-phaseolus-dumosus", em("Phaseolus dumosus")),
+     "Macfadyen (gordo, acalete),", 
+    tags$a(href = "http://enciclovida.mx/especies/187118-phaseolus-lunatus", em("Phaseolus lunatus")),
+     "L. (ib, comba, patachete, navajita, lima) y", 
+    tags$a(href = "http://enciclovida.mx/especies/188894-phaseolus-vulgaris", em("Phaseolus vulgaris")),
+    "L. (cimatl, frejol, frijol, etc.) y todas pueden cohabitar con sus
     poblaciones silvestres (Delgado-Salinas et al., 2006)." ),
 
 br(),
@@ -128,7 +136,7 @@ fluidRow(
 #fluidRow(
   column(7,
          wellPanel(
-           h3(strong("Waffle")),
+           h3(strong("Gráfica de Waffle")),
            h4("¿Cual es la proporción de frijoles que hay en cada estado? Con
               la gráfica de waffle se puede observar de forma rápida la proporción
               de estos, ya que tiene 10 renglones x 10 columnas, es decir 
