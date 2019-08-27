@@ -57,7 +57,7 @@ dashboardPage(
                             h4("Los frijoles (", em("Phaseolus sp."), ") pertenecen a la familia de las 
 leguminosas (Leguminosae o Fabaceae), junto con los chícharos, habas, soya, mezquites, huizaches
 con más de  19,000 especies. En el mundo se conocen alrededor de 150 especies de frijoles (Para mayor información visita la página de la", 
-                        tags$a(href = "https://www.biodiversidad.gob.mx/usos/alimentacion/frijol.html", "Conabio"),")"),
+                        tags$a(href = "https://www.biodiversidad.gob.mx/usos/alimentacion/frijol.html", "Conabio"),")."),
                         
 h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de Canadá hasta 
     el norte  de  Argentina. Existen alrededor de 70 especies, de las cuales cinco han sido domesticadas:",
@@ -65,7 +65,7 @@ h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de
     "L. (ayocote, tecomarí, botil),", em("Phaseolus dumosus"), "Macfadyen (gordo, acalete),", 
     em("Phaseolus lunatus"), "L. (ib, comba, patachete, navajita, lima) y", 
     em("Phaseolus vulgaris") ,"L. (cimatl, frejol, frijol, etc.) y todas pueden cohabitar con sus
-    poblaciones silvestres (Delgado-Salinas et al., 2006)" ),
+    poblaciones silvestres (Delgado-Salinas et al., 2006)." ),
 
 br(),
 h2(strong("Visualización:"), align = "center"),
@@ -77,7 +77,8 @@ fluidRow(
            h3(strong("Distribución")),
            h4("Visualiza todos los registros de ", em("Phaseolus"), "con coordinadas 
            geográficas del proyecto. Los valores se pueden filtrarse por: condición,
-              estado y especie ")
+              estado y especie, permitiendo al usuario seleccionar las variables
+              que más le interesen.")
          )),
   
   column(4,
@@ -92,9 +93,11 @@ fluidRow(
   column(7,
          wellPanel(
            h3(strong("Altitud")),
-           h4("El género", em("Phaseolus"), "puede crecer desde una altitud 
-           a nivel del mar hasta arriba de los tres mil metros. Esto ha permitido 
-           el que se pueda establecer en distitnos ecosistemas de nuestro país")
+           h4("¿La altitud afecta al firjol? El género", em("Phaseolus"), "puede 
+           crecer desde el nivel del mar hasta arriba de los tres mil metros. 
+           Esto ha permitido el que se pueda establecer en distintos ecosistemas 
+           de nuestro país. La gráfica muestra esa gran adaptabilidad del 
+           frijol en nuestro país.")
          )),
   
   column(4,
@@ -108,8 +111,10 @@ fluidRow(
 #fluidRow(
   column(7,
          wellPanel(
-           h3(strong("Epoca de Crecimiento")),
-           h4("")
+           h3(strong("Epoca de Crecimiento y Floración")),
+           h4("¿Cuando crece y ccuando florece? El frijol esta en todo México
+              y ¿todo el tiempo?, no todas las especies, pero el frijol nos
+              acompaña todo el tiempo y en todos lados.")
          )),
   
   column(4,
@@ -124,10 +129,11 @@ fluidRow(
   column(7,
          wellPanel(
            h3(strong("Waffle")),
-           h4("Cual es la proporción de frijoles que hay en cada estado. Con
+           h4("¿Cual es la proporción de frijoles que hay en cada estado? Con
               la gráfica de waffle se puede observar de forma rápida la proporción
-              de estos. La gráfica tiene 10 renglones x 10 columnas, es decir 
-              100 cuadros que representan la proporción ")
+              de estos, ya que tiene 10 renglones x 10 columnas, es decir 
+              100 cuadros que representan 100% de los registros de las especies
+              por cada estado")
          )),
   
   column(4,
