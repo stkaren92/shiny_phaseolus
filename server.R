@@ -51,26 +51,32 @@ shinyServer(
     
     observeEvent(
       eventExpr =  c(input$Habitat.1, input$Estado),  if (input$Habitat.1 != "All" & input$Estado == "All") {
-        updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
+        updateSelectInput(session, inputId = "Estado", 
+                          #label = "Estado:", 
                           choices = c("All", levels(droplevels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
-        updateSelectInput(session, inputId = c("Especie"), label = c("Especie:"), 
+        updateSelectInput(session, inputId = "Especie", 
+                          #label = "Especie:", 
                           choices = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
         
       }  
     else if (input$Habitat.1 != "All" & input$Estado != "All") {
-      updateSelectInput(session, inputId = "Especie", label = "Especie:", 
+      updateSelectInput(session, inputId = "Especie", 
+                        #label = "Especie:", 
                         choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado &
                                                                            Mex3$Habitat.1 %in% input$Habitat.1]))))
     }
       else if (input$Habitat.1 == "All" & input$Estado != "All") {
-        updateSelectInput(session, inputId = "Especie", label = "Especie:", 
+        updateSelectInput(session, inputId = "Especie", 
+                          #label = "Especie:", 
                           choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
       }
       else 
       {
-        updateSelectInput(session, inputId = c("Estado"), label = c("Estado:"), 
+        updateSelectInput(session, inputId = "Estado", 
+                          #label = "Estado:", 
                           choices = c("All", levels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1])))
-        updateSelectInput(session, inputId = c("Especie"), label = c("Especie:"), 
+        updateSelectInput(session, inputId = "Especie", 
+                          #label = "Especie:", 
                           choices = c("All", levels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1])))
       }
                )

@@ -7,6 +7,7 @@ library(leaflet)
 library(plotly)
 library(httr)
 library(rgdal)
+library(tableHTML)
 #library(shinybulma)
 
 dashboardPage(
@@ -146,25 +147,34 @@ fluidRow(
                           value = "distribucion_1",
                           fluidRow(
                            # tags$head(tags$style("#mymap1 {height:90vh !important;}")),
-                            tags$style(type = "text/css", "#mymap1 {height: calc(100vh - 80px) !important;}"),
+                            tags$style("#mymap1 {height: calc(100vh - 80px) !important;}"),
                             leafletOutput('mymap1')
                           ),
                         absolutePanel(top = 90, right = 20, draggable = T,
                                      #Seleccionar el estado
                                      selectInput(inputId = "Habitat.1",
-                                                 label = h6(strong("Condición:")),
+                                                 label = h6(id = "uno1", strong("Condición:")),
                                                  c("All", levels(Mex3$Habitat.1)), width = 200),
                                      
+                                     tags$style(make_css(list('#uno1', 
+                                                              c('color'), c('white')))),
                                      
                                       #Seleccionar el estado
                                      selectInput(inputId = "Estado",
-                                                 label = h6("Estado:"),
+                                                 label = h6(id = 'uno2', strong("Estado:") ),
                                                  c("All", levels(Mex3$Estado)), width = 200),
+                                     
+                                     tags$style(make_css(list('#uno2', 
+                                                              c('color'), c('white')))),
                                     
                                     #Seleccionar la especie 
                                      selectInput(inputId = "Especie",
-                                                 label = h6("Especie:"),
-                                                 c("All", levels(Mex3$Especie)), width = 200)
+                                                 label = h6(id = "uno3", strong("Especie:")),
+                                                 c("All", levels(Mex3$Especie)), width = 200),
+                                    
+                                    #Change color 
+                                    tags$style(make_css(list('#uno3', 
+                                                             c('color'), c('white'))))
                                 
                           ) # close absolute panel
                   ), # close widget page
@@ -214,9 +224,11 @@ fluidRow(
                           absolutePanel(top = 100, right = 20,
                                      selectInput(inputId = "Estado2",
                                                  label = h6(strong("Estado:")),
+                                                 #c("All", levels(Mex3$Habitat.1)),
                                                  choices = c(levels(Mex3$Estado)),
-                                                 selected = c("Oaxaca"), width = 200 )
-                                     
+                                                 selected = c("Oaxaca"), 
+                                                 width = 200 )
+                         
                                  
                           ) # close column
                   ), # close widget2 page
