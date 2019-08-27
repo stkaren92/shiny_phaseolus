@@ -8,7 +8,6 @@ library(plotly)
 library(httr)
 library(rgdal)
 library(tableHTML)
-#library(shinybulma)
 
 dashboardPage(
   
