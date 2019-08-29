@@ -1,6 +1,7 @@
 library(shiny)
-library(shinyjs)
 library(shinydashboard)
+library(shinydashboardPlus)
+library(shinyjs)
 library(tidyverse)
 library(markdown)
 library(leaflet)
@@ -9,18 +10,21 @@ library(httr)
 library(rgdal)
 library(tableHTML)
 
-dashboardPage(
+
+dashboardPagePlus(
   
-  skin = "yellow",
+  #skin = "yellow",
 
   ## Dashboard Header
-  dashboardHeader(title = "Frijol",
-                  titleWidth = 300), # close dashboard header
+  dashboardHeaderPlus(title = "Frijol",
+                  titleWidth = 200,
+                  fixed = TRUE), # close dashboard header
   
   ## Sidebar Menu
   dashboardSidebar( width = 200,
                   shinyjs::useShinyjs(),
-                  collapsed = F, disable = F,
+                  collapsed = F, 
+                  disable = F,
                   sidebarMenu(id = "navbar",
                               #shinyjs::useShinyjs(),
                      menuItem("Introducción", tabName = "home", icon = icon("home")),
@@ -28,7 +32,7 @@ dashboardPage(
                      menuItem("Altitud", tabName = "widgets1", icon = icon("certificate")),
                      menuItem("Floración y Crecimiento", tabName = "widgets3", icon = icon("adjust")),
                      menuItem("Gráfica de waffle", tabName = "widgets2", icon = icon("th")),
-                     menuItem("Conabio", tabName = "conabio", icon = icon("user"))
+                     menuItem("Autores", tabName = "conabio", icon = icon("user"))
                               )
                    ), # close sidebar menu
   
