@@ -92,13 +92,17 @@ fluidRow(
     status = "warning", 
     solidHeader = FALSE, 
     collapsible = TRUE,
-    h5("Visualiza todos los registros de ", em("Phaseolus"), "con coordinadas 
+    h4("Visualiza todos los registros de ", em("Phaseolus"), "con coordinadas 
            geográficas del proyecto. Los valores se pueden filtrarse por: condición,
               estado y especie, permitiendo al usuario seleccionar las variables
               que más le interesen."), 
-    img(id = "mapa" ,src = "MapDistribution1.png", 
-        width = "280", align = "center",
-        style = "cursor:pointer;")),
+    userPostMedia(src = "MapDistribution1.png"),
+    id = "mapa",
+    style = "cursor:pointer;"
+    #img(id = "mapa" ,userPostMedia(src = "MapDistribution1.png"),
+        #width = "280", align = "center",
+     #   style = "cursor:pointer;")
+    ),
   
   boxPlus(
     title = strong("Altitud"), 
@@ -107,14 +111,17 @@ fluidRow(
     status = "warning", 
     solidHeader = FALSE, 
     collapsible = TRUE,
-    h5("¿La altitud afecta al firjol? El género", em("Phaseolus"), "puede 
+    h4("¿La altitud afecta al firjol? El género", em("Phaseolus"), "puede 
            crecer desde el nivel del mar hasta arriba de los tres mil metros. 
            Esto ha permitido el que se pueda establecer en distintos ecosistemas 
            de nuestro país. La gráfica muestra esa gran adaptabilidad del 
            frijol en nuestro país."), 
-    img(id = "altitud", src = "Altitud1.png", width = "400",
-        align = "center",
-        style = "cursor:pointer;")
+    userPostMedia(src = "Altitud1.png"),
+    id = "altitud",
+    style = "cursor:pointer;"
+   # img(id = "altitud", src = "Altitud1.png", width = "400",
+   #     align = "center",
+   #     style = "cursor:pointer;")
     ),
  
   boxPlus(
@@ -124,12 +131,15 @@ fluidRow(
     status = "warning", 
     solidHeader = FALSE, 
     collapsible = TRUE,
-    h5("¿Cuando crece y ccuando florece? El frijol esta en todo México
+    h4("¿Cuando crece y ccuando florece? El frijol esta en todo México
               y ¿todo el tiempo?, no todas las especies, pero el frijol nos
               acompaña todo el tiempo y en todos lados."), 
-    img(id = "crecimiento" ,src = "Crecimiento1.png", width = "400",
-        align = "center",
-        style = "cursor:pointer;")
+    userPostMedia(src = "Crecimiento1.png"),
+    id = "crecimiento",
+    style = "cursor:pointer;"
+   # img(id = "crecimiento" ,src = "Crecimiento1.png", width = "400",
+   #     align = "center",
+   #     style = "cursor:pointer;")
   ),
   
   boxPlus(
@@ -139,14 +149,17 @@ fluidRow(
     status = "warning", 
     solidHeader = FALSE, 
     collapsible = TRUE,
-    h5("¿Cual es la proporción de frijoles que hay en cada estado? Con
+    h4("¿Cual es la proporción de frijoles que hay en cada estado? Con
               la gráfica de waffle se puede observar de forma rápida la proporción
               de estos, ya que tiene 10 renglones x 10 columnas, es decir 
               100 cuadros que representan 100% de los registros de las especies
               por cada estado"), 
-    img(id = "waffle", src = "WafflePlot.png", width = "300",
-        align = "center",
-        style = "cursor:pointer;")
+    userPostMedia(src = "WafflePlot.png"),
+    id = "waffle",
+    style = "cursor:pointer;"
+  #  img(id = "waffle", src = "WafflePlot.png", width = "300",
+  #      align = "center",
+  #      style = "cursor:pointer;")
   )
    )
                             
@@ -236,6 +249,7 @@ fluidRow(
                   tabItem(tabName = "widgets2",
                           br(),
                           fluidRow(
+                            br(),
                             tags$style(type = "text/css", "#graph3 {height: calc(100vh - 40px) !important;}"),
                             plotOutput('graph3', height = "70%", width = "80%")
                           ),
