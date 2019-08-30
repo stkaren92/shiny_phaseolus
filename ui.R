@@ -13,7 +13,7 @@ library(tableHTML)
 
 dashboardPagePlus(
   
-  #skin = "yellow",
+  skin = "yellow",
 
   ## Dashboard Header
   dashboardHeaderPlus(title = "Frijol",
@@ -46,17 +46,19 @@ dashboardPagePlus(
                  tabItem(tabName = "home",
                 #         tags$a(href = "https://humaneborders.org/", div(img(src = "logo-dipper-line.png", width = "200"), 
                 #                                                         style = "text-align: left;")),
+                br(),
+                br(),
                          div(img(src = "Conabio_horizontal_rgb.png", width = "300"), style = "text-align: center;"),
                           fluidRow(
                             h2("Proyecto:", tags$a(href = "http://www.conabio.gob.mx/institucion/cgi-bin/datos2.cgi?Letras=JE&Numero=14", 
                                       strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México")),
                               #strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México"), 
                               align = "center"),
-                            h3(strong("Autores:"), align = "center"),
-                            h4("Responsable del Proyecto:", strong("Dr. Alfonso Octavio Delgado Salinas") , align = "center"),
-                            h4("Técnico Externo:", strong("M. en C. Susana Gama López") , align = "center"),
-                            h4("Co responsables del Proyecto:", strong("Dr. Enrique Martínez-Meyer") , align = "center"),
-                            h4("Colaborador Externo:", strong("Dr. Jorge Alberto Acosta Gallegos") , align = "center"),
+                         #   h3(strong("Autores:"), align = "center"),
+                         #   h4("Responsable del Proyecto:", strong("Dr. Alfonso Octavio Delgado Salinas") , align = "center"),
+                         #   h4("Técnico Externo:", strong("M. en C. Susana Gama López") , align = "center"),
+                         #   h4("Co responsables del Proyecto:", strong("Dr. Enrique Martínez-Meyer") , align = "center"),
+                         #   h4("Colaborador Externo:", strong("Dr. Jorge Alberto Acosta Gallegos") , align = "center"),
                             br(),
                             h2(strong("Introducción"), align = "center" ),
                             h4("Los frijoles (", em("Phaseolus sp."), ") pertenecen a la familia de las 
@@ -80,79 +82,73 @@ h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de
 
 br(),
 h2(strong("Visualización:"), align = "center"),
-h4("Esta visualización esta dividida en cuatro partes:"),
+#h4("Esta visualización esta dividida en cuatro partes:"),
 
 fluidRow(
-  column(7,
-         wellPanel(
-           h3(strong("Distribución")),
-           h4("Visualiza todos los registros de ", em("Phaseolus"), "con coordinadas 
+  boxPlus(
+    title = strong("Distribución"), 
+    closable = FALSE, 
+    width = 6,
+    status = "warning", 
+    solidHeader = FALSE, 
+    collapsible = TRUE,
+    h5("Visualiza todos los registros de ", em("Phaseolus"), "con coordinadas 
            geográficas del proyecto. Los valores se pueden filtrarse por: condición,
               estado y especie, permitiendo al usuario seleccionar las variables
-              que más le interesen.")
-         )),
+              que más le interesen."), 
+    img(id = "mapa" ,src = "MapDistribution1.png", 
+        width = "280", align = "center",
+        style = "cursor:pointer;")),
   
-  column(4,
-         wellPanel(
-           img(id = "mapa" ,src = "MapDistribution1.png", width = "400",
-               style = "cursor:pointer;")
-           #onclick("MapDistribution.png", toggle("Distribución"))
-         )),
-#),
-
-#fluidRow(
-  column(7,
-         wellPanel(
-           h3(strong("Altitud")),
-           h4("¿La altitud afecta al firjol? El género", em("Phaseolus"), "puede 
+  boxPlus(
+    title = strong("Altitud"), 
+    closable = FALSE, 
+    width = 6,
+    status = "warning", 
+    solidHeader = FALSE, 
+    collapsible = TRUE,
+    h5("¿La altitud afecta al firjol? El género", em("Phaseolus"), "puede 
            crecer desde el nivel del mar hasta arriba de los tres mil metros. 
            Esto ha permitido el que se pueda establecer en distintos ecosistemas 
            de nuestro país. La gráfica muestra esa gran adaptabilidad del 
-           frijol en nuestro país.")
-         )),
-  
-  column(4,
-         wellPanel(
-           img(id = "altitud", src = "Altitud1.png", width = "400",
-               style = "cursor:pointer;")
-           #onclick = "fakeClick('distribucion_1')"
-         )),
-#),
-
-#fluidRow(
-  column(7,
-         wellPanel(
-           h3(strong("Epoca de Crecimiento y Floración")),
-           h4("¿Cuando crece y ccuando florece? El frijol esta en todo México
+           frijol en nuestro país."), 
+    img(id = "altitud", src = "Altitud1.png", width = "400",
+        align = "center",
+        style = "cursor:pointer;")
+    ),
+ 
+  boxPlus(
+    title = strong("Epoca de Crecimiento y Floración"), 
+    closable = FALSE, 
+    width = 6,
+    status = "warning", 
+    solidHeader = FALSE, 
+    collapsible = TRUE,
+    h5("¿Cuando crece y ccuando florece? El frijol esta en todo México
               y ¿todo el tiempo?, no todas las especies, pero el frijol nos
-              acompaña todo el tiempo y en todos lados.")
-         )),
+              acompaña todo el tiempo y en todos lados."), 
+    img(id = "crecimiento" ,src = "Crecimiento1.png", width = "400",
+        align = "center",
+        style = "cursor:pointer;")
+  ),
   
-  column(4,
-         wellPanel(
-           img(id = "crecimiento" ,src = "Crecimiento1.png", width = "400",
-               style = "cursor:pointer;")
-         )),
-#),
-
-###PAra la gráfica de Waffle
-#fluidRow(
-  column(7,
-         wellPanel(
-           h3(strong("Gráfica de Waffle")),
-           h4("¿Cual es la proporción de frijoles que hay en cada estado? Con
+  boxPlus(
+    title = strong("Gráfica de Waffle"), 
+    closable = FALSE, 
+    width = 6,
+    status = "warning", 
+    solidHeader = FALSE, 
+    collapsible = TRUE,
+    h5("¿Cual es la proporción de frijoles que hay en cada estado? Con
               la gráfica de waffle se puede observar de forma rápida la proporción
               de estos, ya que tiene 10 renglones x 10 columnas, es decir 
               100 cuadros que representan 100% de los registros de las especies
-              por cada estado")
-         )),
-  
-  column(4,
-         wellPanel(
-           img(id = "waffle", src = "WafflePlot.png", width = "400",
-               style = "cursor:pointer;")
-         ))
-)
+              por cada estado"), 
+    img(id = "waffle", src = "WafflePlot.png", width = "300",
+        align = "center",
+        style = "cursor:pointer;")
+  )
+   )
                             
                             #htmlOutput("inc")
                                   ) #close fluidRow
@@ -162,6 +158,8 @@ fluidRow(
                   ## Para el mapa 1
                   tabItem(tabName = "widgets",
                           value = "distribucion_1",
+                          br(),
+                          #br(),
                           fluidRow(
                            # tags$head(tags$style("#mymap1 {height:90vh !important;}")),
                             tags$style("#mymap1 {height: calc(100vh - 80px) !important;}"),
@@ -198,6 +196,7 @@ fluidRow(
                   
                   ## Para la gráfica de la Altitud
                   tabItem(tabName = "widgets1",
+                          br(),
                           fluidRow(
                             tags$style(type = "text/css", "#graph2 {height: calc(100vh - 80px) !important;}"),
                             plotOutput('graph2', height = "80%", width = "80%")
@@ -213,6 +212,8 @@ fluidRow(
                 
                   ## Para la gráfica de la Temporada de lluvias
                   tabItem(tabName = "widgets3",
+                          br(),
+                          br(),
                           fluidRow(
                             tags$style(type = "text/css", "#graph4 {height: calc(100vh - 80px) !important;}"),
                             plotOutput('graph4', height = "80%", width = "80%")
@@ -233,6 +234,7 @@ fluidRow(
 
                   ## Para el waffle
                   tabItem(tabName = "widgets2",
+                          br(),
                           fluidRow(
                             tags$style(type = "text/css", "#graph3 {height: calc(100vh - 40px) !important;}"),
                             plotOutput('graph3', height = "70%", width = "80%")
@@ -251,24 +253,106 @@ fluidRow(
                   ), # close widget2 page
                     # About Page
                   tabItem(tabName = "conabio", 
+                          br(),
                           fluidRow(
-                            column(width = 11,
-                                   h2(strong("Colaboradores del documento:")),
-                                   img(src = "Catbus.png", width = "250"),
-                                   column(width = 3,
-                                          h3("Oswaldo Oliveros Galindo"),
-                                          h4("Especialista en Agrobiodiversidad"),
-                                          a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CA.html", "Conabio")),
-                                   br(),
-                                   h3(strong("Visualización Shiny:")),
-                                   img(src = "APM.jpeg", width = "250"),
-                                   column(width = 3,
-                                          h3("Alejandro Ponce-M"),
-                                          h4("Experto para el Análisis de Información de Agrobiodiversidad"),
-                                          a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
-                                          br(),
-                                          a(href = "https://github.com/APonce73", "Github"))
-                            )  
+                            br(),
+                            h3(strong("Autores:"), align = "center"),
+                            widgetUserBox(
+                              title = h4("Dr. Alfonso Octavio Delgado Salinas"),
+                              subtitle = "Responsable del Proyecto",
+                              width = 4,
+                              type = 2,
+                              src = "Catbus.png",
+                              color = "blue",
+                              "UNAM",
+                              footer = NULL
+                            ),
+                            widgetUserBox(
+                              title = h4("M. en C. Susana Gama López"),
+                              subtitle = "Técnico Externo",
+                              width = 4,
+                              type = 2,
+                              src = "Catbus.png",
+                              color = "blue",
+                              "UNAM",
+                              footer = NULL
+                            ),
+                            widgetUserBox(
+                              title = h4("Dr. Enrique Martínez-Meyer"),
+                              subtitle = "Co-responsables del Proyecto",
+                              width = 4,
+                              type = 2,
+                              src = "Catbus.png",
+                              color = "blue",
+                              "UNAM",
+                              footer = NULL
+                            ),
+                            widgetUserBox(
+                              title = h4("Dr. Jorge Alberto Acosta Gallegos"),
+                              subtitle = "Colaborador Externo",
+                              width = 4,
+                              type = 2,
+                              src = "Catbus.png",
+                              color = "blue",
+                              "FALTA",
+                              footer = NULL
+                            )
+                            ),
+                          fluidRow( 
+                            
+                            h3(strong("Conabio:"), align = "center"),
+                            
+                            widgetUserBox(
+                              title = h4("Oswaldo Oliveros Galindo"),
+                              subtitle = "Especialista en Agrobiodiversidad",
+                              width = 4,
+                              type = 2,
+                              collapsible = TRUE,
+                              #closable = TRUE,
+                              src = "Catbus.png",
+                              color = "yellow",
+                              "Some text here!",
+                              footer = a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CA.html", "Conabio")
+                            ),
+                            
+                            widgetUserBox(
+                              title = h4("Alejandro Ponce-Mendoza"),
+                              subtitle = "Experto para el Análisis de Información de Agrobiodiversidad",
+                              width = 4,
+                              type = 2,
+                              src = "APM.jpeg",
+                              color = "yellow",
+                              h5("Trabajo en la", tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
+                                "para conservación de la agrobiodiversidad. Me interesa la visualización y análisis,
+                                 de datos ecológicos. Mis publicaciones las puedes encontrar",
+                                tags$a(href = "https://scholar.google.com/citations?user=M1i6_loAAAAJ&hl=en", "aquí"  )),
+                              footer = socialButton(
+                                url = "https://github.com/APonce73",
+                                type = "github"), tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio")
+                                #tags$a(href = "https://github.com/APonce73", "Github")
+                                #h3(tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
+                                #tags$a(href = "https://github.com/APonce73", "Github"),
+                                #         )
+                              
+                            )
+                            
+              #              column(width = 11,
+              #                     h2(strong("Colaboradores del documento:")),
+              #                     img(src = "Catbus.png", width = "250"),
+              #                     column(width = 3,
+              #                            h3("Oswaldo Oliveros Galindo"),
+              #                            h4("Especialista en Agrobiodiversidad"),
+              #                            a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CA.html", "Conabio")),
+              #                     br(),
+              #                     h3(strong("Visualización Shiny:")),
+              #                     img(src = "APM.jpeg", width = "250"),
+              #                     column(width = 3,
+              #                            h3("Alejandro Ponce-M"),
+              #                            h4("Experto para el Análisis de Información de Agrobiodiversidad"),
+              #                            a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
+              #                            br(),
+              #                            a(href = "https://github.com/APonce73", "Github"))
+              #              )  
                           )
                           #column(width = 1),
                           
