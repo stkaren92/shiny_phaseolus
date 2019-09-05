@@ -30,7 +30,7 @@ dashboardPagePlus(
                      menuItem("Introducción", tabName = "home", icon = icon("home")),
                      menuItem("Distribución", tabName = "widgets", icon = icon("map")),
                      menuItem("Altitud", tabName = "widgets1", icon = icon("certificate")),
-                     menuItem("Floración y Crecimiento", tabName = "widgets3", icon = icon("adjust")),
+                     menuItem("Floración y fructificación", tabName = "widgets3", icon = icon("adjust")),
                      menuItem("Gráfica de waffle", tabName = "widgets2", icon = icon("th")),
                      menuItem("Autores", tabName = "conabio", icon = icon("user"))
                               )
@@ -93,9 +93,8 @@ fluidRow(
     solidHeader = FALSE, 
     collapsible = TRUE,
     h4("Visualiza todos los registros de ", em("Phaseolus"), "con coordinadas 
-           geográficas del proyecto. Los valores se pueden filtrarse por: condición,
-              estado y especie, permitiendo al usuario seleccionar las variables
-              que más le interesen."), 
+           geográficas del proyecto. Los valores pueden filtrarse por las variables condición,
+              estado y especie."), 
     userPostMedia(src = "MapDistribution1.png"),
     id = "mapa",
     style = "cursor:pointer;"
@@ -113,9 +112,9 @@ fluidRow(
     collapsible = TRUE,
     h4("¿La altitud afecta al firjol? El género", em("Phaseolus"), "puede 
            crecer desde el nivel del mar hasta arriba de los tres mil metros. 
-           Esto ha permitido el que se pueda establecer en distintos ecosistemas 
+           Esto ha permitido que se pueda establecer en distintos ecosistemas 
            de nuestro país. La gráfica muestra esa gran adaptabilidad del 
-           frijol en nuestro país."), 
+           frijol."), 
     userPostMedia(src = "Altitud1.png"),
     id = "altitud",
     style = "cursor:pointer;"
@@ -185,7 +184,7 @@ fluidRow(
                                                  c("All", levels(Mex3$Habitat.1)), width = 200),
                                      
                                      tags$style(make_css(list('#uno1', 
-                                                              c('color'), c('white')))),
+                                                              c('color'), c('black')))),
                                      
                                       #Seleccionar el estado
                                      selectInput(inputId = "Estado",
@@ -193,7 +192,7 @@ fluidRow(
                                                  c("All", levels(Mex3$Estado)), width = 200),
                                      
                                      tags$style(make_css(list('#uno2', 
-                                                              c('color'), c('white')))),
+                                                              c('color'), c('black')))),
                                     
                                     #Seleccionar la especie 
                                      selectInput(inputId = "Especie",
@@ -202,7 +201,7 @@ fluidRow(
                                     
                                     #Change color 
                                     tags$style(make_css(list('#uno3', 
-                                                             c('color'), c('white'))))
+                                                             c('color'), c('black'))))
                                 
                           ) # close absolute panel
                   ), # close widget page

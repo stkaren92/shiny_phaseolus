@@ -11,6 +11,7 @@ library(sp)
 library(rgdal)
 library(ggthemes)
 library(waffle)
+#library(gganimate)
 
 # Define server logic for slider examples
 shinyServer(
@@ -51,7 +52,6 @@ shinyServer(
         updateSelectInput(session, inputId = "Especie", 
                           #label = "Especie:", 
                           choices = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
-        
       }  
     else if (input$Habitat.1 != "All" & input$Estado != "All") {
       updateSelectInput(session, inputId = "Especie", 
@@ -77,43 +77,57 @@ shinyServer(
     
 #Para el mapa
     points <- reactive({
-      
       #Tipo
       if (input$Habitat.1 != "All") {
         Mex3 <- Mex3[Mex3$Habitat.1 %in% input$Habitat.1,]
       } else Mex3 <- Mex3
-      
-  
-              #Por Estado
+      #Por Estado
         if (input$Estado != "All") {
           Mex3 <- Mex3[Mex3$Estado %in% input$Estado,]
         } else Mex3 <- Mex3
-      
-        #Por Especie
+      #Por Especie
         if (input$Especie != "All") {
           Mex3 <- Mex3[Mex3$Especie %in% input$Especie,]
         } else Mex3 <- Mex3
-
     })
+    
+    
+    
+ #   map = leaflet()
+ #   for (i in 1:length(providers)) {
+ #     map = map %>% addProviderTiles(providers[i], group = providers[i])
+ #   }
+ #   
+ #   map = map %>% addLayersControl(
+ #     baseGroups = providers,
+ #     options = layersControlOptions(collapsed = FALSE))
+    
+ #   map
     
     output$mymap1 <- renderLeaflet(
       {
-    Tabla3 <- points()
-
-    leaflet() %>%
-      addTiles() %>%
-      addProviderTiles(providers$CartoDB.DarkMatter) %>% 
-      addCircles(data = Tabla3,
-                 lng = ~Longitud, lat = ~Latitud,
-                 color = Tabla3$RatingCol, weight = 5, opacity = 0.7,
-                 popup = ~paste(sep = " ", "Especie:",Tabla3$Taxa,
-                                "<br/>", "Condición:",Tabla3$Habitat.1,
-                                "<br/>", "Estado:",Tabla3$Estado,
-                                "<br/>", "Municipio:",Tabla3$Municipio,
-                                "<br/>", "Localidad:",Tabla3$Localidad,
-                                "<br/>", "Altitud:",Tabla3$Altitud,
-                                "<br/>", "Año de colecta:", Tabla3$AnioColecta))
-     })
+        providers <- c("Stamen.TonerLite", "Stamen.Watercolor", 
+                       "CartoDB.Positron", "Acetate.terrain")
+        Tabla3 <- points()
+        leaflet() %>%
+          addTiles() %>%
+          addProviderTiles("CartoDB.Positron") %>%
+          #addProviderTiles(providers[i], group = providers[i]) %>% 
+          addCircles(data = Tabla3,
+                     lng = ~Longitud, lat = ~Latitud,
+                     color = Tabla3$RatingCol, weight = 5, opacity = 0.7,
+                     popup = ~paste(sep = " ", "Especie:",Tabla3$Taxa,
+                                    "<br/>", "Condición:",Tabla3$Habitat.1,
+                                    "<br/>", "Estado:",Tabla3$Estado,
+                                    "<br/>", "Municipio:",Tabla3$Municipio,
+                                    "<br/>", "Localidad:",Tabla3$Localidad,
+                                    "<br/>", "Altitud:",Tabla3$Altitud, "metros",
+                                    "<br/>", "Año de colecta:", Tabla3$AnioColecta))
+         # addLayersControl(
+         #   baseGroups = providers,
+         #   position = c("topleft"),
+         #   options = layersControlOptions(collapsed = FALSE))
+        })
     
     
     observeEvent(
@@ -121,14 +135,10 @@ shinyServer(
         updateSelectInput(session, inputId = "Especie1", label = "Especie:", 
                           choice = c("All" ,levels(droplevels(Mex4$Especie[Mex4$Estado %in% input$Estado1])))))
     
-
     #Para las epocas de lluvia y Floración
-    
     points1 <- reactive({
-      
       #Epoca
       FloFru <- FloFru[FloFru$Epoca %in% input$Epoca,]
-      
       #Tipo
       FloFru <- FloFru[FloFru$Tipo %in% input$Tipo,]
     })
@@ -168,8 +178,6 @@ output$graph4 <- renderPlot({
   
 })    
     
-    
-  
   #Para la Altitud  
     Mex10 <- reactive({
       switch(input$var11,
@@ -177,8 +185,6 @@ output$graph4 <- renderPlot({
              "máximo" = Mex8,
              "mínimo" = Mex9)
     })
-    
-    
     
     ####
     output$graph2 <- renderPlot({
@@ -200,7 +206,9 @@ output$graph4 <- renderPlot({
         labs(title = "Altitud", x = "metros", 
              y = "", fill = "",
              family = "Helvetica") +
-        xlim(0, 4000)
+        xlim(0, 4000) 
+     # last_plot +
+    #    transition_reveal(ordenar1)
       
       uno
       }
