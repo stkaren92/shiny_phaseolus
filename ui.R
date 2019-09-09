@@ -63,7 +63,7 @@ dashboardPagePlus(
                             h2(strong("Introducción"), align = "center" ),
                             h4("Los frijoles (", em("Phaseolus sp."), ") pertenecen a la familia de las 
 leguminosas (Leguminosae o Fabaceae), junto con los chícharos, habas, soya, mezquites, huizaches
-con más de  19,000 especies. En el mundo se conocen alrededor de 150 especies de frijoles (Para mayor información visita la página de la", 
+con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares de frijoles (Visita la página de la", 
                         tags$a(href = "https://www.biodiversidad.gob.mx/usos/alimentacion/frijol.html", "Conabio"),")."),
                         
 h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de Canadá hasta 
@@ -130,7 +130,7 @@ fluidRow(
     status = "warning", 
     solidHeader = FALSE, 
     collapsible = TRUE,
-    h4("¿Cuando crece y ccuando florece? El frijol esta en todo México
+    h4("¿Cuándo crece y cuándo florece? El frijol esta en todo México
               y ¿todo el tiempo?, no todas las especies, pero el frijol nos
               acompaña todo el tiempo y en todos lados."), 
     userPostMedia(src = "Crecimiento1.png"),
@@ -148,7 +148,7 @@ fluidRow(
     status = "warning", 
     solidHeader = FALSE, 
     collapsible = TRUE,
-    h4("¿Cual es la proporción de frijoles que hay en cada estado? Con
+    h4("¿Cuál es la proporción de frijoles que hay en cada estado? Con
               la gráfica de waffle se puede observar de forma rápida la proporción
               de estos, ya que tiene 10 renglones x 10 columnas, es decir 
               100 cuadros que representan 100% de los registros de las especies
