@@ -44,21 +44,13 @@ dashboardPagePlus(
                 tabItems( 
                   ## Home
                  tabItem(tabName = "home",
-                #         tags$a(href = "https://humaneborders.org/", div(img(src = "logo-dipper-line.png", width = "200"), 
-                #                                                         style = "text-align: left;")),
                 br(),
                 br(),
                          div(img(src = "Conabio_horizontal_rgb.png", width = "300"), style = "text-align: center;"),
                           fluidRow(
                             h2("Proyecto:", tags$a(href = "http://www.conabio.gob.mx/institucion/cgi-bin/datos2.cgi?Letras=JE&Numero=14", 
                                       strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México")),
-                              #strong("El género"), strong(em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")) , strong("para México"), 
                               align = "center"),
-                         #   h3(strong("Autores:"), align = "center"),
-                         #   h4("Responsable del Proyecto:", strong("Dr. Alfonso Octavio Delgado Salinas") , align = "center"),
-                         #   h4("Técnico Externo:", strong("M. en C. Susana Gama López") , align = "center"),
-                         #   h4("Co responsables del Proyecto:", strong("Dr. Enrique Martínez-Meyer") , align = "center"),
-                         #   h4("Colaborador Externo:", strong("Dr. Jorge Alberto Acosta Gallegos") , align = "center"),
                             br(),
                             h2(strong("Introducción"), align = "center" ),
                             h4("Los frijoles (", em("Phaseolus sp."), ") pertenecen a la familia de las 
@@ -82,7 +74,6 @@ h4( "En América, el género", em(" Phaseolus"), "se distribuyen desde el sur de
 
 br(),
 h2(strong("Visualización:"), align = "center"),
-#h4("Esta visualización esta dividida en cuatro partes:"),
 
 fluidRow(
   boxPlus(
@@ -98,9 +89,6 @@ fluidRow(
     userPostMedia(src = "MapDistribution1.png"),
     id = "mapa",
     style = "cursor:pointer;"
-    #img(id = "mapa" ,userPostMedia(src = "MapDistribution1.png"),
-        #width = "280", align = "center",
-     #   style = "cursor:pointer;")
     ),
   
   boxPlus(
@@ -118,9 +106,6 @@ fluidRow(
     userPostMedia(src = "Altitud1.png"),
     id = "altitud",
     style = "cursor:pointer;"
-   # img(id = "altitud", src = "Altitud1.png", width = "400",
-   #     align = "center",
-   #     style = "cursor:pointer;")
     ),
  
   boxPlus(
@@ -136,9 +121,6 @@ fluidRow(
     userPostMedia(src = "Crecimiento1.png"),
     id = "crecimiento",
     style = "cursor:pointer;"
-   # img(id = "crecimiento" ,src = "Crecimiento1.png", width = "400",
-   #     align = "center",
-   #     style = "cursor:pointer;")
   ),
   
   boxPlus(
@@ -156,13 +138,9 @@ fluidRow(
     userPostMedia(src = "WafflePlot.png"),
     id = "waffle",
     style = "cursor:pointer;"
-  #  img(id = "waffle", src = "WafflePlot.png", width = "300",
-  #      align = "center",
-  #      style = "cursor:pointer;")
   )
    )
                             
-                            #htmlOutput("inc")
                                   ) #close fluidRow
                   ), # close home tab
                   
@@ -171,9 +149,7 @@ fluidRow(
                   tabItem(tabName = "widgets",
                           value = "distribucion_1",
                           br(),
-                          #br(),
                           fluidRow(
-                           # tags$head(tags$style("#mymap1 {height:90vh !important;}")),
                             tags$style("#mymap1 {height: calc(100vh - 80px) !important;}"),
                             leafletOutput('mymap1')
                           ),
@@ -256,7 +232,6 @@ fluidRow(
                           absolutePanel(top = 100, right = 20,
                                      selectInput(inputId = "Estado2",
                                                  label = h6(strong("Estado:")),
-                                                 #c("All", levels(Mex3$Habitat.1)),
                                                  choices = c(levels(Mex3$Estado)),
                                                  selected = c("Oaxaca"), 
                                                  width = 200 )
@@ -342,45 +317,10 @@ fluidRow(
                               footer = socialButton(
                                 url = "https://github.com/APonce73",
                                 type = "github"), tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio")
-                                #tags$a(href = "https://github.com/APonce73", "Github")
-                                #h3(tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
-                                #tags$a(href = "https://github.com/APonce73", "Github"),
-                                #         )
                               
                             )
                             
-              #              column(width = 11,
-              #                     h2(strong("Colaboradores del documento:")),
-              #                     img(src = "Catbus.png", width = "250"),
-              #                     column(width = 3,
-              #                            h3("Oswaldo Oliveros Galindo"),
-              #                            h4("Especialista en Agrobiodiversidad"),
-              #                            a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CA.html", "Conabio")),
-              #                     br(),
-              #                     h3(strong("Visualización Shiny:")),
-              #                     img(src = "APM.jpeg", width = "250"),
-              #                     column(width = 3,
-              #                            h3("Alejandro Ponce-M"),
-              #                            h4("Experto para el Análisis de Información de Agrobiodiversidad"),
-              #                            a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
-              #                            br(),
-              #                            a(href = "https://github.com/APonce73", "Github"))
-              #              )  
                           )
-                          #column(width = 1),
-                          
-                                 
-                          #       h4("Volunteer at DataKind.org"),
-                          #       br(),
-                          #       h4("Master of Applied Statisitcs, UCLA 2016 - 2018"),
-                          #       h4("Bachelor of Financial Mathematics and Statistics, UCSB 2011 - 2015"),
-                          #       br(),
-                          #       h4("Rental Real Estate Broker Assistant, Underwriting 2018"),
-                          #       h4("Quantitative Analyst Intern, Mingshi Investment Management, Shanghai, China 2016"),
-                          #       h4("Investment Analyst Intern, Soochow Securities, Suzhou, Jiangsu, China 2015"),
-                          #       br(),
-                          #       a(href = "www.linkedin.com/in/siyuan-derek-li-b4663a49", "LinkedIn"),
-                          #       br(),
                                  
                   ) # close about page
                 ) # close tab item
