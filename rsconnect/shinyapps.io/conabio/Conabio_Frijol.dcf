@@ -5,9 +5,9 @@ account: conabio
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 638125
-bundleId: 2400441
+bundleId: 3013450
 url: https://conabio.shinyapps.io/Conabio_Frijol/
-when: 1568053775.82132
+when: 1586895064.67544
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: literature/InfJE014.pdf

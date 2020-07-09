@@ -144,10 +144,9 @@ Mex3 <- Mex2 %>%
   dplyr::mutate(Estado = revalue(Estado,c("TEXAS" = "Texas"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("NEW MEXICO" = "New Mexico"))) %>%
   dplyr::filter(Habitat.1 != "ND") %>%
-  dplyr::filter(Habitat.1 != "Híbrido")
+  dplyr::filter(Habitat.1 != "Híbrido") %>% 
+  mutate(Altitud = replace(Altitud, Altitud > 8000, NA))
 
-head(Mex3)
-str(Mex3)
 Mex3$AnioColecta <- as.factor(Mex3$AnioColecta)
 Mex3$Estado <- as.factor(Mex3$Estado)
 Mex3$Habitat.1 <- as.factor(Mex3$Habitat.1)

@@ -29,13 +29,13 @@ shinyServer(
                                              inputId = "navbar",
                                              selected = "widgets1"))
     
-    #Hacer interactivo el mapa
+    #Hacer interactivo florecimiento
     shinyjs::onclick("crecimiento", 
                      shiny::updateNavbarPage(session, 
                                              inputId = "navbar",
                                              selected = "widgets3"))
     
-    #Hacer interactivo el mapa
+    #Hacer interactivo waffle plot
     shinyjs::onclick("waffle", 
                      shiny::updateNavbarPage(session, 
                                              inputId = "navbar",
@@ -44,53 +44,115 @@ shinyServer(
     
     output$inc <- renderUI({getPage()})
     
+
+    
     observeEvent(
-      eventExpr =  c(input$Habitat.1, input$Estado),  if (input$Habitat.1 != "All" & input$Estado == "All") {
-        updateSelectInput(session, inputId = "Estado", 
+      eventExpr =  c(input$Habitat.1, input$Estado, input$Especie, baseGroups1),  
+      if (input$Habitat.1 != "All" & input$Estado != "All" & input$Especie != "All") {
+        
+        selectInput(session, inputId = "Estado", 
                           #label = "Estado:", 
-                          choices = c("All", levels(droplevels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
+                          choices = c("All", levels(Mex3$Estado)))
+        selectInput(session, inputId = "Especie", 
+                          #label = "Especie:", 
+                          choices = c("All", levels(Mex3$Especie)))
+        selectInput(session, inputId = "Habitat.1", 
+                          #label = "Especie:", 
+                          choices = c("All", levels(Mex3$Habitat.1)))
+        
+        
+       # updateSelectInput(session, inputId = "Estado", 
+       #                   #label = "Estado:", 
+       #                   choices = c("All", levels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1 &
+       #                                                                      Mex3$Especie %in% input$Especie])))
+       # updateSelectInput(session, inputId = "Especie", 
+       #                   #label = "Especie:", 
+       #                   choices = c("All", levels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1 &
+       #                                                                       Mex3$Estado %in% input$Estado])))
+       # updateSelectInput(session, inputId = "Habitat.1", 
+       #                   #label = "Especie:", 
+       #                   choices = c("All", levels(Mex3$Habitat.1[Mex3$Especie %in% input$Especie &
+       #                                                                         Mex3$Estado %in% input$Estado])))
+        
+      }  
+       else if (input$Habitat.1 != "All" & input$Estado != "All" & input$Especie == "All") {
+        
         updateSelectInput(session, inputId = "Especie", 
                           #label = "Especie:", 
-                          choices = c("All", levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
-      }  
-    else if (input$Habitat.1 != "All" & input$Estado != "All") {
-      updateSelectInput(session, inputId = "Especie", 
-                        #label = "Especie:", 
-                        choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado &
-                                                                           Mex3$Habitat.1 %in% input$Habitat.1]))))
-    }
-      else if (input$Habitat.1 == "All" & input$Estado != "All") {
+                          choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado &
+                                                                              Mex3$Habitat.1 %in% input$Habitat.1]))))
+      }
+      else if (input$Habitat.1 != "All" & input$Estado == "All" & input$Especie == "All") {
+        
+         updateSelectInput(session, inputId = "Estado", 
+                           #label = "Especie:", 
+                           choices = c("All" ,levels(droplevels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1]))))
+        updateSelectInput(session, inputId = "Especie", 
+                          #label = "Especie:", 
+                          choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1]))))
+        #baseGroups1 = baseGroups1[2]
+      }
+      else if (input$Habitat.1 == "All" & input$Estado != "All" & input$Especie != "All") {
+   
+        updateSelectInput(session, inputId = "Habitat.1", 
+                          #label = "Especie:", 
+                          choices = c("All" ,levels(droplevels(Mex3$Habitat.1[Mex3$Estado %in% input$Estado &
+                                                                                Mex3$Especie %in% input$Especie]))))
+      }
+      else if (input$Habitat.1 == "All" & input$Estado != "All" & input$Especie == "All") {
         updateSelectInput(session, inputId = "Especie", 
                           #label = "Especie:", 
                           choices = c("All" ,levels(droplevels(Mex3$Especie[Mex3$Estado %in% input$Estado]))))
+        
+        updateSelectInput(session, inputId = "Habitat.1", 
+                          #label = "Especie:", 
+                          choices = c("All" ,levels(droplevels(Mex3$Habitat.1[Mex3$Estado %in% input$Estado]))))
+      }
+      else if (input$Habitat.1 == "All" & input$Estado == "All" & input$Especie != "All") {
+        updateSelectInput(session, inputId = "Estado", 
+                          #label = "Especie:", 
+                          choices = c("All" ,levels(droplevels(Mex3$Estado[Mex3$Especie %in% input$Especie]))))
+        
+        updateSelectInput(session, inputId = "Habitat.1", 
+                          #label = "Especie:", 
+                          choices = c("All" ,levels(droplevels(Mex3$Habitat.1[Mex3$Especie %in% input$Especie]))))
+      }
+      else if (input$Habitat.1 != "All" & input$Estado == "All" & input$Especie != "All") {
+        updateSelectInput(session, inputId = "Estado", 
+                          #label = "Especie:", 
+                          choices = c("All" ,levels(droplevels(Mex3$Estado[Mex3$Especie %in% input$Especie &
+                                                                             Mex3$Habitat.1 %in% input$Habitat.1]))))
       }
       else 
       {
-        updateSelectInput(session, inputId = "Estado", 
+        selectInput(session, inputId = "Estado", 
                           #label = "Estado:", 
-                          choices = c("All", levels(Mex3$Estado[Mex3$Habitat.1 %in% input$Habitat.1])))
-        updateSelectInput(session, inputId = "Especie", 
+                          choices = c("All", levels(Mex3$Estado)))
+        selectInput(session, inputId = "Especie", 
                           #label = "Especie:", 
-                          choices = c("All", levels(Mex3$Especie[Mex3$Habitat.1 %in% input$Habitat.1])))
+                          choices = c("All", levels(Mex3$Especie)))
+        selectInput(session, inputId = "Habitat.1", 
+                          #label = "Especie:", 
+                          choices = c("All", levels(Mex3$Habitat.1)))
       }
-               )
+    )
     
-#Para el mapa
+     
+    #Para el mapa
     points <- reactive({
       #Tipo
       if (input$Habitat.1 != "All") {
         Mex3 <- Mex3[Mex3$Habitat.1 %in% input$Habitat.1,]
       } else Mex3 <- Mex3
       #Por Estado
-        if (input$Estado != "All") {
-          Mex3 <- Mex3[Mex3$Estado %in% input$Estado,]
-        } else Mex3 <- Mex3
+      if (input$Estado != "All") {
+        Mex3 <- Mex3[Mex3$Estado %in% input$Estado,]
+      } else Mex3 <- Mex3
       #Por Especie
-        if (input$Especie != "All") {
-          Mex3 <- Mex3[Mex3$Especie %in% input$Especie,]
-        } else Mex3 <- Mex3
+      if (input$Especie != "All") {
+        Mex3 <- Mex3[Mex3$Especie %in% input$Especie,]
+      } else Mex3 <- Mex3
     })
-    
     
     
  #   map = leaflet()
@@ -103,17 +165,17 @@ shinyServer(
  #     options = layersControlOptions(collapsed = FALSE))
     
  #   map
+    baseGroups1 = c("OSM (default)", "CartoDB Dark", "Open Street France")
     
     output$mymap1 <- renderLeaflet(
       {
-        providers <- c("Stamen.TonerLite", "Stamen.Watercolor", 
-                       "CartoDB.Positron", "Acetate.terrain")
+       # providers <- c("Stamen.TonerLite", "Esri.WorldTopoMap", 
+        #               "CartoDB.Positron", "Acetate.terrain")
         Tabla3 <- points()
         leaflet() %>%
-          addTiles() %>%
-          addProviderTiles("CartoDB.Positron") %>%
-          #addProviderTiles(providers[i], group = providers[i]) %>% 
-          addCircles(data = Tabla3,
+        addTiles() %>%
+          #providerTileOptions(updateWhenIdle = FALSE) %>% 
+          addCircles(data = Tabla3, group = "Circles",
                      lng = ~Longitud, lat = ~Latitud,
                      color = Tabla3$RatingCol, weight = 5, opacity = 0.7,
                      popup = ~paste(sep = " ", "Especie:",Tabla3$Taxa,
@@ -122,14 +184,19 @@ shinyServer(
                                     "<br/>", "Municipio:",Tabla3$Municipio,
                                     "<br/>", "Localidad:",Tabla3$Localidad,
                                     "<br/>", "Altitud:",Tabla3$Altitud, "metros",
-                                    "<br/>", "Año de colecta:", Tabla3$AnioColecta))
-         # addLayersControl(
-         #   baseGroups = providers,
-         #   position = c("topleft"),
-         #   options = layersControlOptions(collapsed = FALSE))
-        })
-    
-    
+                                    "<br/>", "Año de colecta:", Tabla3$AnioColecta,
+                                    "<br/>", "<br/>", "NA = no hay dato")) %>% 
+        addLayersControl(
+        #baseGroups = c("OSM (default)"),
+        baseGroups = baseGroups1,
+        position = c("topleft"),
+        options = layersControlOptions(collapsed = FALSE)) %>% 
+      #addProviderTiles("CartoDB.DarkMatter", group = "CartoDB Dark") %>%
+      addProviderTiles("CartoDB.DarkMatter", group = "CartoDB Dark", options = layersControlOptions(autoZIndex = FALSE)) %>%
+      addProviderTiles("OpenStreetMap.France", group = "Open Street France", options = layersControlOptions( autoZIndex = FALSE))
+      })
+ 
+  #Para la Floración    
     observeEvent(
       input$Estado1,
         updateSelectInput(session, inputId = "Especie1", label = "Especie:", 
@@ -254,12 +321,21 @@ output$graph4 <- renderPlot({
       mypalette <- levels(TTabla1$RatingCol)
        uno <- waffle(TTabla1$val1, rows = 10, size = 0.3, flip = F , reverse = F, colors = mypalette, legend_pos = "right", keep = T) 
       dos <- uno + 
-         theme(legend.text = element_text(size = 15, face = "italic"),
-               legend.key.size = unit(0.9, "cm")) +
+        ggtitle(label =  "Proporción de especies de frijol",
+                subtitle = "(Nota: Basado en el número de registros de cada especie por estado)") +
          scale_fill_manual(values = mypalette, name = "Especies", labels = TTabla1$Especie) +
-        labs(title = "Proporción de especies de frijol") +
-        guides(fill = guide_legend(title.theme = element_text(size = 20)))
+        #labs(title = "Proporción de especies de frijol\n(Nota: Basado en el número de registros de cada especie por estado)") +
+        guides(fill = guide_legend(title.theme = element_text(size = 20))) +
+        theme(legend.text = element_text(size = 15, face = "italic"),
+              legend.key.size = unit(0.9, "cm"),
+              plot.title = element_text(size = 16, face = "bold"),
+              plot.subtitle = element_text(color = "#525252"))
         
+    #  theme(
+    #    plot.title = element_text(color = "red", size = 12, face = "bold"),
+    #    plot.subtitle = element_text(color = "blue"),
+    #    plot.caption = element_text(color = "green", face = "italic")
+      
       
       print(dos)
     
