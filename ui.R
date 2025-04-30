@@ -7,15 +7,15 @@ library(markdown)
 library(leaflet)
 library(plotly)
 library(httr)
-library(rgdal)
+# library(rgdal)
 library(tableHTML)
 
 
-dashboardPagePlus(
+dashboardPage(
   skin = "yellow",
   
   ## Dashboard Header
-  dashboardHeaderPlus(
+  dashboardHeader(
     title = "Frijol",
     titleWidth = 200,
     fixed = TRUE
@@ -59,7 +59,7 @@ dashboardPagePlus(
         tabName = "home",
         br(),
         br(),
-        div(img(src = "Conabio_horizontal_rgb.png", width = "300"), style = "text-align: center;"),
+        div(img(image = "Conabio_horizontal_rgb.png", width = "300"), style = "text-align: center;"),
         fluidRow(
           h2(
             "Proyecto:",
@@ -68,7 +68,9 @@ dashboardPagePlus(
                      em("Phaseolus (Leguminosae, Papilionoideae, Phaseoleae)")
                    ) , strong("para México")),
             align = "center"
+
           ),
+#####
           br(),
           h2(strong("Introducción"), align = "center"),
           h4(
@@ -80,7 +82,7 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             tags$a(href = "https://www.biodiversidad.gob.mx/usos/alimentacion/frijol.html", "Conabio"),
             ")."
           ),
-          
+
           h4(
             "En América, el género",
             em(" Phaseolus"),
@@ -98,12 +100,12 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             "L. (cimatl, frejol, frijol, etc.) y todas pueden cohabitar con sus
     poblaciones silvestres (Delgado-Salinas et al., 2006)."
           ),
-          
+
           br(),
           h2(strong("Visualización:"), align = "center"),
-          
+
           fluidRow(
-            boxPlus(
+            box(
               title = strong("Distribución"),
               closable = FALSE,
               width = 6,
@@ -117,12 +119,12 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
            geográficas del proyecto. Los valores pueden filtrarse por las variables condición,
               estado y especie."
               ),
-              userPostMedia(src = "MapDistribution1.png"),
+              userPostMedia(image = "MapDistribution1.png"),
               id = "mapa",
               style = "cursor:pointer;"
             ),
-            
-            boxPlus(
+
+            box(
               title = strong("Altitud"),
               closable = FALSE,
               width = 6,
@@ -138,12 +140,12 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
            de nuestro país. La gráfica muestra esa gran adaptabilidad del
            frijol."
               ),
-              userPostMedia(src = "Altitud1.png"),
+              userPostMedia(image = "Altitud1.png"),
               id = "altitud",
               style = "cursor:pointer;"
             ),
-            
-            boxPlus(
+
+            box(
               title = strong("Epoca de Crecimiento y Floración"),
               closable = FALSE,
               width = 6,
@@ -155,12 +157,12 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
               y ¿todo el tiempo?, no todas las especies, pero el frijol nos
               acompaña todo el tiempo y en todos lados."
               ),
-              userPostMedia(src = "Crecimiento1.png"),
+              userPostMedia(image = "Crecimiento1.png"),
               id = "crecimiento",
               style = "cursor:pointer;"
             ),
-            
-            boxPlus(
+
+            box(
               title = strong("Gráfica de Waffle"),
               closable = FALSE,
               width = 6,
@@ -174,17 +176,16 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
               100 cuadros que representan 100% de los registros de las especies
               por cada estado"
               ),
-              userPostMedia(src = "WafflePlot.png"),
+              userPostMedia(image = "WafflePlot.png"),
               id = "waffle",
               style = "cursor:pointer;"
             )
           )
-          
+#####
         ) #close fluidRow
-      ),
-      # close home tab
+      ), # close home tab
       
-      
+ #####     
       ## Para el mapa 1
       tabItem(
         tabName = "widgets",
@@ -209,12 +210,12 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             c("All", levels(Mex3$Habitat.1)),
             width = 200
           ),
-          
+
           tags$style(make_css(list(
             '#uno1',
             c('color'), c('#e74c3c')
           ))),
-          
+
           #Seleccionar el estado
           selectInput(
             inputId = "Estado",
@@ -222,12 +223,12 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             c("All", levels(Mex3$Estado)),
             width = 200
           ),
-          
+
           tags$style(make_css(list(
             '#uno2',
             c('color'), c('#e74c3c')
           ))),
-          
+
           #Seleccionar la especie
           selectInput(
             inputId = "Especie",
@@ -235,17 +236,16 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             c("All", levels(Mex3$Especie)),
             width = 200
           ),
-          
+
           #Change color
           tags$style(make_css(list(
             '#uno3',
             c('color'), c('#e74c3c')
           )))
-          
+
         ) # close absolute panel
-      ),
-      # close widget page
-      
+      ), # close tabItem widget page
+#####
       ## Para la gráfica de la Altitud
       tabItem(
         tabName = "widgets1",
@@ -254,7 +254,7 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
           tags$style(type = "text/css", "#graph2 {height: calc(100vh - 80px) !important;}"),
           plotOutput('graph2', height = "80%", width = "80%")
         ),
-        
+
         absolutePanel(
           top = 70,
           right = 20,
@@ -265,11 +265,10 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             choices = c("promedio", "máximo", "mínimo"),
             width = 200
           )
-          
+
         ) # close column
-      ),
-      # close widget page
-      
+      ), # close widget page
+
       ## Para la gráfica de la Temporada de lluvias
       tabItem(
         tabName = "widgets3",
@@ -279,7 +278,7 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
           tags$style(type = "text/css", "#graph4 {height: calc(100vh - 80px) !important;}"),
           plotOutput('graph4', height = "80%", width = "80%")
         ),
-        
+
         absolutePanel(
           top = 70,
           right = 20,
@@ -299,11 +298,10 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             selected = "Silvestres",
             width = 200
           )
-          
+
         ) # close absolutePanel
-      ),
-      # close widget3 page
-      
+      ), # close widget3 page
+
       ## Para el waffle
       tabItem(
         tabName = "widgets2",
@@ -313,7 +311,7 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
           tags$style(type = "text/css", "#graph3 {height: calc(100vh - 40px) !important;}"),
           plotOutput('graph3', height = "70%", width = "80%")
         ),
-        
+
         absolutePanel(
           top = 100,
           right = 20,
@@ -324,98 +322,135 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
             selected = c("Oaxaca"),
             width = 200
           )
-          
-          
         ) # close column
-      ),
-      # close widget2 page
+      ), # close  tabItem
+
+#####    
       # About Page
       tabItem(
         tabName = "conabio",
         br(),
         fluidRow(
-          br(),
-          h3(strong("Autores:"), align = "center"),
-          widgetUserBox(
-            title = h4("Dr. Alfonso Octavio Delgado Salinas"),
-            subtitle = "Responsable del Proyecto",
-            width = 4,
-            type = 2,
-            src = "Catbus.png",
-            color = "blue",
-            "UNAM",
-            footer = NULL
-          ),
-          widgetUserBox(
-            title = h4("M. en C. Susana Gama López"),
-            subtitle = "Técnico Externo",
-            width = 4,
-            type = 2,
-            src = "Catbus.png",
-            color = "blue",
-            "UNAM",
-            footer = NULL
-          ),
-          widgetUserBox(
-            title = h4("Dr. Enrique Martínez-Meyer"),
-            subtitle = "Co-responsables del Proyecto",
-            width = 4,
-            type = 2,
-            src = "Catbus.png",
-            color = "blue",
-            "UNAM",
-            footer = NULL
-          ),
-          widgetUserBox(
-            title = h4("Dr. Jorge Alberto Acosta Gallegos"),
-            subtitle = "Colaborador Externo",
-            width = 4,
-            type = 2,
-            src = "Catbus.png",
-            color = "blue",
-            "FALTA",
-            footer = NULL
+          column(
+            width = 12,
+            h3(strong("Autores:"), align = "center")
           )
         ),
         fluidRow(
-          h3(strong("Conabio:"), align = "center"),
-          
-          widgetUserBox(
-            title = h4("Oswaldo Oliveros Galindo"),
-            subtitle = "Especialista en Agrobiodiversidad",
+          column(
             width = 4,
-            type = 2,
-            collapsible = TRUE,
-            #closable = TRUE,
-            src = "Catbus.png",
-            color = "yellow",
-            "Some text here!",
-            footer = a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CA.html", "Conabio")
+            userBox(
+              title = userDescription(
+                title = "Dr. Alfonso Octavio Delgado Salinas",
+                subtitle = "Responsable del Proyecto",
+                type = 2,
+                image = "Catbus.png",  # Asegúrate que esté en carpeta `www/`
+              ),
+              width = 12,  # Este 'width' es interno a la caja
+              background = "blue",
+              "Some text here",
+              footer = "UNAM",
+              collapsed = TRUE
+            )
           ),
-          
-          widgetUserBox(
-            title = h4("Alejandro Ponce-Mendoza"),
-            subtitle = "Experto para el Análisis de Información de Agrobiodiversidad",
+          column(
             width = 4,
-            type = 2,
-            src = "APM.jpeg",
-            color = "yellow",
-            h5(
+            userBox(
+              title = userDescription(
+                title = "M. en C. Susana Gama López",
+                subtitle = "Técnico Externo",
+                type = 2,
+                image = "Catbus.png",  # Asegúrate que esté en carpeta `www/`
+              ),
+              width = 12,  # Este 'width' es interno a la caja
+              background = "blue",
+              "Some text here",
+              footer = "UNAM",
+              collapsed = TRUE
+            )
+          ),
+          column(
+            width = 4,
+            userBox(
+              title = userDescription(
+                title = "Dr. Enrique Martínez-Meyer",
+                subtitle = "Co-responsables del Proyecto",
+                type = 2,
+                image = "Catbus.png",  # Asegúrate que esté en carpeta `www/`
+              ),
+              width = 12,  # Este 'width' es interno a la caja
+              background = "blue",
+              "Some text here",
+              footer = "UNAM",
+              collapsed = TRUE
+            )
+          ),
+          column(
+            width = 4,
+            userBox(
+              title = userDescription(
+                title = "Dr. Jorge Alberto Acosta Gallegos",
+                subtitle = "Colaborador Externo",
+                type = 2,
+                image = "Catbus.png",  # Asegúrate que esté en carpeta `www/`
+              ),
+              width = 12,  # Este 'width' es interno a la caja
+              background = "blue",
+              "Some text here",
+              footer = "Institution",
+              collapsed = TRUE
+            )
+          )
+        ),
+        br(),
+        fluidRow(
+          column(
+            width = 12,
+            h3(strong("CONABIO:"), align = "center")
+          )
+        ),
+        fluidRow(
+          column(
+            width = 4,
+            userBox(
+              title = userDescription(
+                title = "Oswaldo Oliveros Galindo",
+                subtitle = "Especialista en Agrobiodiversidad",
+                type = 2,
+                image = "Catbus.png",  # Asegúrate que esté en carpeta `www/`
+              ),
+              width = 12,  # Este 'width' es interno a la caja
+              background = "yellow",
+              "Some text here",
+              footer = a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CA.html", "Conabio"),
+              collapsed = TRUE
+            )
+          ),
+          column(
+            width = 4,
+            userBox(
+              title = userDescription(
+                title = "Alejandro Ponce-Mendoza",
+                subtitle = "Experto para el Análisis de Información de Agrobiodiversidad",
+                type = 2,
+                image = "APM.jpg",  # Asegúrate que esté en carpeta `www/`
+              ),
+              width = 12,  # Este 'width' es interno a la caja
+              background = "yellow",
               "Trabajo en la",
               tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
               "para conservación de la agrobiodiversidad. Me interesa la visualización y análisis,
                                  de datos ecológicos. Mis publicaciones las puedes encontrar",
-              tags$a(href = "https://scholar.google.com/citations?user=M1i6_loAAAAJ&hl=en", "aquí")
-            ),
-            footer = socialButton(url = "https://github.com/APonce73",
-                                  type = "github"),
-            tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio")
-            
+              tags$a(href = "https://scholar.google.com/citations?user=M1i6_loAAAAJ&hl=en", "aquí"),".",
+              footer = p(tags$a(href = "http://www.conabio.gob.mx/web/conocenos/CGAyRB_CPAM.html", "Conabio"),
+                         tags$a(href = "https://github.com/APonce73", "Github")),
+              collapsed = TRUE
+            )
           )
-          
-        )
-        
-      ) # close about page
-    ) # close tab item
+        ) # clore FluidRow
+      ) # close tabItem about page
+#####        
+      
+    ) # close tabItems
   ) # close body
 ) # end UI
