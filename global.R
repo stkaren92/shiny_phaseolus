@@ -150,6 +150,8 @@ Mex3 <- Mex2 %>%
 Mex3$AnioColecta <- as.factor(Mex3$AnioColecta)
 Mex3$Estado <- as.factor(Mex3$Estado)
 Mex3$Habitat.1 <- as.factor(Mex3$Habitat.1)
+Mex3$Especie <- as.factor(Mex3$Especie)
+Mex3$RatingCol <- as.factor(Mex3$RatingCol)
 
 
 
