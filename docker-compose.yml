@@ -3,4 +3,4 @@ services:
     build: .  
     working_dir: /srv/app
     ports:
-      - "${PGMAICES_EXTERNAL_PORT:-3838}:3838"  
+      - "${PHASEOLUS_EXTERNAL_PORT:-3838}:3838"  
