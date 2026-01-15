@@ -25,15 +25,21 @@ apt_install \
     libproj-dev
 
 install2.r --error --skipinstalled -n "$NCPUS" \
+    ash \
+    DT \
     RColorBrewer \
     ggmap \
     ggthemes \
+    gridExtra \
+    extrafont \
     igraph \
     latticeExtra \
     leaflet \
+    maps \
     markdown \
     plotly \
     plyr \
+    proj4 \
     shiny \
     shinydashboard \
     shinydashboardPlus \
@@ -43,9 +49,9 @@ install2.r --error --skipinstalled -n "$NCPUS" \
     tidyverse \
     vegan
 
-install2.r -r NULL -t "source" "https://cran.r-project.org/src/contrib/Archive/ggalt/ggalt_0.4.0.tar.gz"
+install2.r --error --skipinstalled -r NULL -t "source" "https://cran.r-project.org/src/contrib/Archive/ggalt/ggalt_0.4.0.tar.gz"
 
-install2.r -r NULL -t "source" "https://cran.r-project.org/src/contrib/Archive/waffle/waffle_1.0.2.tar.gz"
+install2.r --error --skipinstalled -r NULL -t "source" "https://cran.r-project.org/src/contrib/Archive/waffle/waffle_1.0.2.tar.gz"
 
 ## a bridge to far? -- brings in another 60 packages
 # install2.r --error --skipinstalled -n "$NCPUS" tidymodels
@@ -64,3 +70,17 @@ echo -e "Check the igraph package...\n"
 R -q -e "library(igraph)"
 
 echo -e "\nInstall igraph package, done!"
+
+# Check the ggalt version
+echo -e "Check the ggalt package...\n"
+
+R -q -e "library(ggalt)"
+
+echo -e "\nInstall ggalt package, done!"
+
+# Check the waffle version
+echo -e "Check the waffle package...\n"
+
+R -q -e "library(waffle)"
+
+echo -e "\nInstall waffle package, done!"
