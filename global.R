@@ -12,46 +12,20 @@ library(ggthemes)
 library(ggmap)
 library(ggalt)
 
-
-Mex <- read_xlsx("data/Phaseolus_Shiny.xlsx", sheet = "Phaseolus", col_names = T)
+Mex <- read_xlsx("data/PhaseolusEne2026_JE014_Unida.xlsx", 
+                 sheet = "@PhaseolusEne2026", col_names = T)
 Mex <- as.data.frame(Mex)
 
-Mex$LatitudSegundos <- as.character(Mex$LatitudSegundos)
-Mex$LatitudSegundos <- as.numeric(Mex$LatitudSegundos)
-
-Mex$LongitudSegundos <- as.character(Mex$LongitudSegundos)
-Mex$LongitudSegundos <- as.numeric(Mex$LongitudSegundos)
-
-Lat1 <- Mex %>%
-  select(matches("Latitud")) %>%
-  dplyr::mutate(Min = LatitudMinutos/60) %>%
-  dplyr::mutate(Seg = LatitudSegundos/3600) %>%
-  transmute(Latitud = LatitudGrados + Min + Seg)
-
-Long1 <- Mex %>%
-  select(matches("Longitud")) %>%
-  dplyr::mutate(Min = LongitudMinutos/60) %>%
-  dplyr::mutate(Seg = LongitudSegundos/3600) %>%
-  transmute(Longitud = abs(LongitudGrados) + Min + Seg) %>%
-  transmute(Longitud = Longitud * -1)
-
-Mex1 <- Mex %>%
-  select(-matches("Longitud")) %>%
-  select(-matches("Latitud")) %>%
-  bind_cols(Lat1) %>%
-  bind_cols(Long1)
-
-Taxa1 <- str_split_fixed(Mex1$Taxa, " - ", 2)
-Taxa1 <- as.data.frame(Taxa1)
-names(Taxa1) <- c("Especie", "Autoridad")
-Taxa1$RatingCol <- Taxa1$Especie
-
-Mex2 <- Mex1 %>%
-  bind_cols(Taxa1)
+Mex2 <- Mex %>% 
+  rename("Longitud" = "Long_dec",
+         "Latitud" = "Lat_dec",
+         "Habitat.1" = "Condición") %>% 
+  mutate(RatingCol = Especie)
 
 Mex3 <- Mex2 %>%
   dplyr::mutate(RatingCol = revalue(RatingCol,  c("Phaseolus acutifolius var. acutifolius" = "#00441b",
                                                   "Phaseolus acutifolius var. tenuifolius" = "#006d2c",
+                                                  "Phaseolus acutifolius" = "#006d2f",
                                                   "Phaseolus albescens" = "#238b45", 
                                                   "Phaseolus albiflorus" = "#41ae76", 
                                                   "Phaseolus amblyosepalus" = "#66c2a4",
@@ -64,6 +38,7 @@ Mex3 <- Mex2 %>%
                                                   "Phaseolus dasycarpus" = "#addd8e", 
                                                   "Phaseolus dumosus" = "#d9f0a3", 
                                                   "Phaseolus esperanzae" = "#f7fcb9",
+                                                  "Phaseolus esquincensis" = "#f7fcc8",
                                                   "Phaseolus filiformis" = "#2b8cde",
                                                   "Phaseolus glabellus" = "#4eb3d3", 
                                                   "Phaseolus hintonii" = "#7bccc4",
@@ -72,6 +47,7 @@ Mex3 <- Mex2 %>%
                                                   "Phaseolus laxiflorus" = "#88419d",
                                                   "Phaseolus leptophyllus" = "#8c6bb1",
                                                   "Phaseolus leptostachyus" = "#7f0000",
+                                                  "Phaseolus lunatus" = "#b30005",
                                                   "Phaseolus lunatus var. lunatus" = "#b30000",
                                                   "Phaseolus lunatus var. silvester" = "#d7301f",
                                                   "Phaseolus maculatifolius" = "#ef6548", 
@@ -142,6 +118,7 @@ Mex3 <- Mex2 %>%
   dplyr::mutate(Estado = revalue(Estado,c("BAJA CALIFORNIA" = "Baja California"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("ARIZONA" = "Arizona"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("TEXAS" = "Texas"))) %>%
+  dplyr::mutate(Estado = revalue(Estado,c("HUEHUETENANGO" = "Huehuetenango"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("NEW MEXICO" = "New Mexico"))) %>%
   dplyr::filter(Habitat.1 != "ND") %>%
   dplyr::filter(Habitat.1 != "Híbrido") %>% 

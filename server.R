@@ -185,7 +185,7 @@ shinyServer(
                                     "<br/>", "Localidad:",Tabla3$Localidad,
                                     "<br/>", "Altitud:",Tabla3$Altitud, "metros",
                                     "<br/>", "Año de colecta:", Tabla3$AnioColecta,
-                                    "<br/>", "<br/>", "NA = no hay dato")) %>% 
+                                    "<br/>", "<br/>", "NA, ND, 9999 = no hay dato")) %>% 
         addLayersControl(
         #baseGroups = c("OSM (default)"),
         baseGroups = baseGroups1,
