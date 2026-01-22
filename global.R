@@ -7,10 +7,10 @@ library(latticeExtra)
 library(vegan)
 library(plotly)
 library(sp)
-# library(rgdal)
 library(ggthemes)
 library(ggmap)
 library(ggalt)
+library(colorspace)
 
 Mex <- read_xlsx("data/PhaseolusEne2026_JE014_Unida.xlsx", 
                  sheet = "@PhaseolusEne2026", col_names = T)
@@ -20,69 +20,12 @@ Mex2 <- Mex %>%
   rename("Longitud" = "Long_dec",
          "Latitud" = "Lat_dec",
          "Habitat.1" = "Condición") %>% 
-  mutate(RatingCol = Especie)
+  mutate(RatingCol = as.factor(Especie))
+levels(Mex2$RatingCol) <- rainbow_hcl(nlevels(Mex2$RatingCol),
+                                      c = 70,
+                                      l = 50)
 
 Mex3 <- Mex2 %>%
-  dplyr::mutate(RatingCol = revalue(RatingCol,  c("Phaseolus acutifolius var. acutifolius" = "#00441b",
-                                                  "Phaseolus acutifolius var. tenuifolius" = "#006d2c",
-                                                  "Phaseolus acutifolius" = "#006d2f",
-                                                  "Phaseolus albescens" = "#238b45", 
-                                                  "Phaseolus albiflorus" = "#41ae76", 
-                                                  "Phaseolus amblyosepalus" = "#66c2a4",
-                                                  "Phaseolus angustissimus" = "#99d8c9", 
-                                                  "Phaseolus anisophyllus" = "#004529", 
-                                                  "Phaseolus campanulatus" = "#006837",
-                                                  "Phaseolus carterae" = "#238443", 
-                                                  "Phaseolus chiapasanus" = "#41ab5d", 
-                                                  "Phaseolus coccineus" = "#78c679",
-                                                  "Phaseolus dasycarpus" = "#addd8e", 
-                                                  "Phaseolus dumosus" = "#d9f0a3", 
-                                                  "Phaseolus esperanzae" = "#f7fcb9",
-                                                  "Phaseolus esquincensis" = "#f7fcc8",
-                                                  "Phaseolus filiformis" = "#2b8cde",
-                                                  "Phaseolus glabellus" = "#4eb3d3", 
-                                                  "Phaseolus hintonii" = "#7bccc4",
-                                                  "Phaseolus jaliscanus" = "#4d004b", 
-                                                  "Phaseolus juquilensis" = "#810f7c", 
-                                                  "Phaseolus laxiflorus" = "#88419d",
-                                                  "Phaseolus leptophyllus" = "#8c6bb1",
-                                                  "Phaseolus leptostachyus" = "#7f0000",
-                                                  "Phaseolus lunatus" = "#b30005",
-                                                  "Phaseolus lunatus var. lunatus" = "#b30000",
-                                                  "Phaseolus lunatus var. silvester" = "#d7301f",
-                                                  "Phaseolus maculatifolius" = "#ef6548", 
-                                                  "Phaseolus maculatus" = "#fc8d59",
-                                                  "Phaseolus macvaughii" = "#fdbb84", 
-                                                  "Phaseolus marechalii" = "#662506", 
-                                                  "Phaseolus micranthus" = "#993404",
-                                                  "Phaseolus microcarpus" = "#cc4c02", 
-                                                  "Phaseolus neglectus" = "#ec7014", 
-                                                  "Phaseolus nelsonii" = "#fe9929",
-                                                  "Phaseolus nodosus" = "#fec44f",
-                                                  "Phaseolus novoleonensis" = "#67001f",
-                                                  "Phaseolus oaxacanus" = "#980043",
-                                                  "Phaseolus oligospermus" = "#ce1256",
-                                                  "Phaseolus parvifolius" = "#e7298a",
-                                                  "Phaseolus parvulus" = "#df65b0",
-                                                  "Phaseolus pauciflorus" = "#c994c7",
-                                                  "Phaseolus pedicellatus" = "#081d58", 
-                                                  "Phaseolus perplexus" = "#253494",
-                                                  "Phaseolus plagiocylix" = "#225ea8",
-                                                  "Phaseolus pluriflorus" = "#1d91c0",
-                                                  "Phaseolus purpusii" = "#41b6c4",
-                                                  "Phaseolus reticulatus" = "#7fcdbb", 
-                                                  "Phaseolus ritensis" = "#2171b5",
-                                                  "Phaseolus rotundatus" = "#4292c6",
-                                                  "Phaseolus salicifolius" = "#6baed6", 
-                                                  "Phaseolus scabrellus" = "#9ecae1",
-                                                  "Phaseolus sonorensis" = "#c6dbef",
-                                                  "Phaseolus tenellus" = "#deebf7",
-                                                  "Phaseolus tuerckheimii" = "#fc9272", 
-                                                  "Phaseolus viridis" = "#fcbba1", 
-                                                  "Phaseolus vulgaris" = "#fed976",
-                                                  "Phaseolus xanthotrichus" = "#bd0026", 
-                                                  "Phaseolus xolocotzii" = "#e31a1c", 
-                                                  "Phaseolus zimapanensis" = "#fc4e2a"))) %>%
   dplyr::mutate(val = 1) %>%
   dplyr::mutate(Estado = revalue(Estado,c("YUCATÁN" = "Yucatán"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("QUINTANA ROO" = "Quintana Roo"))) %>%

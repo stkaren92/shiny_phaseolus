@@ -173,7 +173,7 @@ shinyServer(
         #               "CartoDB.Positron", "Acetate.terrain")
         Tabla3 <- points()
         leaflet() %>%
-        addTiles() %>%
+        addTiles(options = tileOptions(opacity = 0.5)) %>%
           #providerTileOptions(updateWhenIdle = FALSE) %>% 
           addCircles(data = Tabla3, group = "Circles",
                      lng = ~Longitud, lat = ~Latitud,
