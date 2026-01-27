@@ -192,7 +192,7 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
         value = "distribucion_1",
         br(),
         fluidRow(
-          tags$style("#mymap1 {height: calc(100vh - 80px) !important;}"),
+          tags$style("#mymap1 {height: calc(100vh - 10px) !important;}"),
           leafletOutput('mymap1')
         ),
         absolutePanel(
@@ -241,7 +241,10 @@ con más de  19,000 especies. En el mundo se conocen alrededor de 150 cultivares
           tags$style(make_css(list(
             '#uno3',
             c('color'), c('#e74c3c')
-          )))
+          ))),
+          
+          # Botón de descarga de datos
+          downloadButton("download_xlsx", "Descargar datos")
 
         ) # close absolute panel
       ), # close tabItem widget page

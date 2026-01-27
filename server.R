@@ -17,6 +17,17 @@ library(waffle)
 shinyServer(
   function(input, output, session) {
     
+    # Descargar archivo Excel de folder www
+    output$download_xlsx <- downloadHandler(
+      filename = function() {
+        "datos_phaseolus.xlsx"
+      },
+      content = function(file) {
+        file.copy("www/PhaseolusEne2026_JE014_Unida.xlsx", file)
+      },
+      contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    
     #Hacer interactivo el mapa
     shinyjs::onclick("mapa", 
                      shiny::updateNavbarPage(session, 
@@ -189,7 +200,7 @@ shinyServer(
         addLayersControl(
         #baseGroups = c("OSM (default)"),
         baseGroups = baseGroups1,
-        position = c("topleft"),
+        position = c("topright"),
         options = layersControlOptions(collapsed = FALSE)) %>% 
       #addProviderTiles("CartoDB.DarkMatter", group = "CartoDB Dark") %>%
       addProviderTiles("CartoDB.DarkMatter", group = "CartoDB Dark", options = layersControlOptions(autoZIndex = FALSE)) %>%
