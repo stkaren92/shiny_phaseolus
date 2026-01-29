@@ -26,6 +26,7 @@ apt_install \
 
 install2.r --error --skipinstalled -n "$NCPUS" \
     ash \
+    colorspace \
     DT \
     RColorBrewer \
     ggmap \
