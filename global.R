@@ -26,7 +26,6 @@ levels(Mex2$RatingCol) <- rainbow_hcl(nlevels(Mex2$RatingCol),
                                       l = 50)
 
 Mex3 <- Mex2 %>%
-  dplyr::mutate(val = 1) %>%
   dplyr::mutate(Estado = revalue(Estado,c("YUCATÁN" = "Yucatán"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("QUINTANA ROO" = "Quintana Roo"))) %>%
   dplyr::mutate(Estado = revalue(Estado,c("TAMAULIPAS" = "Tamaulipas"))) %>%
@@ -65,7 +64,7 @@ Mex3 <- Mex2 %>%
   dplyr::mutate(Estado = revalue(Estado,c("NEW MEXICO" = "New Mexico"))) %>%
   dplyr::filter(Habitat.1 != "ND") %>%
   dplyr::filter(Habitat.1 != "Híbrido") %>% 
-  mutate(Altitud = replace(Altitud, Altitud > 8000, NA))
+  mutate(Altitud = replace(Altitud, Altitud == 9999, NA))
 
 Mex3$AnioColecta <- as.factor(Mex3$AnioColecta)
 Mex3$Estado <- as.factor(Mex3$Estado)
@@ -75,7 +74,7 @@ Mex3$RatingCol <- as.factor(Mex3$RatingCol)
 
 
 
-#names(Mex3)
+
 Mex4 <- Mex3 %>%
   filter(Estado != "Arizona") %>%
   filter(Estado != "Texas") %>%
@@ -88,34 +87,21 @@ Mex4$Estado <- factor(Mex4$Estado)
 Mex5 <- Mex4 %>%
   select(Especie, Altitud) %>%
   group_by(Especie) %>%
-  summarise(minimo = min(Altitud))
-
-Mex5.1 <- Mex4 %>%
-  select(Especie, Altitud) %>%
-  group_by(Especie) %>%
-  summarise(prom = mean(Altitud))
-
-
-Mex6 <- Mex4 %>%
-  select(Especie, Altitud) %>%
-  filter(Altitud < 9000) %>%
-  group_by(Especie) %>%
-  summarise(maximo = max(Altitud)) %>%
-  full_join(Mex5, by = "Especie") %>%
-  full_join(Mex5.1, by = "Especie") %>%
-  mutate(rango = maximo - minimo) %>%
+  summarise(minimo = min(Altitud, na.rm = T),
+            prom = mean(Altitud, na.rm = T),
+            maximo = max(Altitud, na.rm = T),
+            rango = maximo - minimo) %>%
   na.omit()
 
-
-Mex7 <- Mex6 %>% 
+Mex7 <- Mex5 %>% 
   arrange(prom) %>% 
   mutate(ordenar1 = prom)
 
-Mex8 <- Mex6 %>% 
+Mex8 <- Mex5 %>% 
   arrange(maximo) %>% 
   mutate(ordenar1 = maximo )
 
-Mex9 <- Mex6 %>% 
+Mex9 <- Mex5 %>% 
   arrange(minimo) %>% 
   mutate(ordenar1 = minimo)
 

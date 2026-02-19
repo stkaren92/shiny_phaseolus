@@ -308,29 +308,16 @@ output$graph4 <- renderPlot({
       
       Tabla6a <- points2()
       
-      Tabla6b <- Tabla6a %>%
-        dplyr::select(Especie, RatingCol)
-      #head(Tabla6a)
-      Tabla6 <- aggregate(Tabla6a$val, by = list(Tabla6a$Especie), FUN = sum, na.rm = T)
-      #head(Tabla6)
-      names(Tabla6) <- c("Especie", "val")
-      
-      Tabla7 <- inner_join(Tabla6, Tabla6b, by = "Especie") %>%
-        distinct()
-      
-      TTabla1 <- Tabla7 %>%
-        plyr::arrange(-val) %>%
-        #  filter(Estado == "Oaxaca") %>%
-        mutate(val1 = ceiling(100*(val/sum(val * 1.05)))) %>%
-        select(Especie, val1, RatingCol) %>%
-        droplevels()
+      TTabla1 <- Tabla6a %>% 
+        dplyr::count(Especie) %>%
+        mutate(val1 = round(n/sum(n)*100)) %>% 
+        arrange(-val1)
       
       Diff <- 100 - sum(TTabla1$val1)
       TTabla1$val1[1] <- TTabla1$val1[1] + Diff
       
-      
-      mypalette <- levels(TTabla1$RatingCol)
-       uno <- waffle(TTabla1$val1, rows = 10, size = 0.3, flip = F , reverse = F, colors = mypalette, legend_pos = "right", keep = T) 
+      mypalette <- rainbow_hcl(nrow(TTabla1), c = 70, l = 50)
+      uno <- waffle(TTabla1$val1, rows = 10, size = 0.3, flip = F , reverse = F, colors = mypalette, legend_pos = "right", keep = T) 
       dos <- uno + 
         ggtitle(label =  "Proporción de especies de frijol",
                 subtitle = "(Nota: Basado en el número de registros de cada especie por estado)") +
